@@ -7,14 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		234EB8D005309D184DCA6B2A /* Pods_Frases_Divinas.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1523FF2599F785DB8CD5DDF8 /* Pods_Frases_Divinas.framework */; };
 		A7587CC1203E4D7D003060DE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7587CC0203E4D7D003060DE /* AppDelegate.swift */; };
 		A7587CC6203E4D7D003060DE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7587CC4203E4D7D003060DE /* Main.storyboard */; };
 		A7587CC8203E4D7D003060DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7587CC7203E4D7D003060DE /* Assets.xcassets */; };
 		A7587CCB203E4D7D003060DE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7587CC9203E4D7D003060DE /* LaunchScreen.storyboard */; };
 		A7587CD5203E4F26003060DE /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7587CD4203E4F26003060DE /* TableViewController.swift */; };
+		A7B482FF203F611A00E0346B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A7B482FE203F611A00E0346B /* GoogleService-Info.plist */; };
+		A7B48301203F656400E0346B /* Frases.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B48300203F656400E0346B /* Frases.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1523FF2599F785DB8CD5DDF8 /* Pods_Frases_Divinas.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Frases_Divinas.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		19AC0A2071F2D4AABC6791EB /* Pods-Frases Divinas.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Frases Divinas.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Frases Divinas/Pods-Frases Divinas.debug.xcconfig"; sourceTree = "<group>"; };
+		91BDFC5ABD90DC18E2A44A82 /* Pods-Frases Divinas.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Frases Divinas.release.xcconfig"; path = "Pods/Target Support Files/Pods-Frases Divinas/Pods-Frases Divinas.release.xcconfig"; sourceTree = "<group>"; };
 		A7587CBD203E4D7D003060DE /* Frases Divinas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Frases Divinas.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7587CC0203E4D7D003060DE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A7587CC5203E4D7D003060DE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -22,6 +28,8 @@
 		A7587CCA203E4D7D003060DE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A7587CCC203E4D7D003060DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A7587CD4203E4F26003060DE /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		A7B482FE203F611A00E0346B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		A7B48300203F656400E0346B /* Frases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Frases.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +37,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				234EB8D005309D184DCA6B2A /* Pods_Frases_Divinas.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		555257B13482015AEC0CE019 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1523FF2599F785DB8CD5DDF8 /* Pods_Frases_Divinas.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		59B097AE2B3722ACA0B531AA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				19AC0A2071F2D4AABC6791EB /* Pods-Frases Divinas.debug.xcconfig */,
+				91BDFC5ABD90DC18E2A44A82 /* Pods-Frases Divinas.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		A7587CB4203E4D7D003060DE = {
 			isa = PBXGroup;
 			children = (
 				A7587CBF203E4D7D003060DE /* Frases Divinas */,
 				A7587CBE203E4D7D003060DE /* Products */,
+				59B097AE2B3722ACA0B531AA /* Pods */,
+				555257B13482015AEC0CE019 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -55,11 +83,13 @@
 			isa = PBXGroup;
 			children = (
 				A7587CD4203E4F26003060DE /* TableViewController.swift */,
+				A7B482FE203F611A00E0346B /* GoogleService-Info.plist */,
 				A7587CC0203E4D7D003060DE /* AppDelegate.swift */,
 				A7587CC4203E4D7D003060DE /* Main.storyboard */,
 				A7587CC7203E4D7D003060DE /* Assets.xcassets */,
 				A7587CC9203E4D7D003060DE /* LaunchScreen.storyboard */,
 				A7587CCC203E4D7D003060DE /* Info.plist */,
+				A7B48300203F656400E0346B /* Frases.swift */,
 			);
 			path = "Frases Divinas";
 			sourceTree = "<group>";
@@ -71,9 +101,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A7587CCF203E4D7E003060DE /* Build configuration list for PBXNativeTarget "Frases Divinas" */;
 			buildPhases = (
+				B24802E6EB931D602ECF92E7 /* [CP] Check Pods Manifest.lock */,
 				A7587CB9203E4D7D003060DE /* Sources */,
 				A7587CBA203E4D7D003060DE /* Frameworks */,
 				A7587CBB203E4D7D003060DE /* Resources */,
+				8902D55DD5A46551D669F2FE /* [CP] Embed Pods Frameworks */,
+				753CB394A1D86B69519A790A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -124,12 +157,85 @@
 			buildActionMask = 2147483647;
 			files = (
 				A7587CCB203E4D7D003060DE /* LaunchScreen.storyboard in Resources */,
+				A7B482FF203F611A00E0346B /* GoogleService-Info.plist in Resources */,
 				A7587CC8203E4D7D003060DE /* Assets.xcassets in Resources */,
 				A7587CC6203E4D7D003060DE /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		753CB394A1D86B69519A790A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Frases Divinas/Pods-Frases Divinas-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8902D55DD5A46551D669F2FE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Frases Divinas/Pods-Frases Divinas-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-ProtoRPC/ProtoRPC.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-RxLibrary/RxLibrary.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProtoRPC.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxLibrary.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Frases Divinas/Pods-Frases Divinas-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B24802E6EB931D602ECF92E7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Frases Divinas-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		A7587CB9203E4D7D003060DE /* Sources */ = {
@@ -138,6 +244,7 @@
 			files = (
 				A7587CC1203E4D7D003060DE /* AppDelegate.swift in Sources */,
 				A7587CD5203E4F26003060DE /* TableViewController.swift in Sources */,
+				A7B48301203F656400E0346B /* Frases.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,13 +379,14 @@
 		};
 		A7587CD0203E4D7E003060DE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 19AC0A2071F2D4AABC6791EB /* Pods-Frases Divinas.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = M2Z8KTGT88;
 				INFOPLIST_FILE = "Frases Divinas/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.filipemerli.Frases-Divinas";
+				PRODUCT_BUNDLE_IDENTIFIER = com.filipemerli.frasesdivinas;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -287,13 +395,14 @@
 		};
 		A7587CD1203E4D7E003060DE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 91BDFC5ABD90DC18E2A44A82 /* Pods-Frases Divinas.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = M2Z8KTGT88;
 				INFOPLIST_FILE = "Frases Divinas/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.filipemerli.Frases-Divinas";
+				PRODUCT_BUNDLE_IDENTIFIER = com.filipemerli.frasesdivinas;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
