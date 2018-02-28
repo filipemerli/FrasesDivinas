@@ -13,8 +13,8 @@
 		A7587CC8203E4D7D003060DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7587CC7203E4D7D003060DE /* Assets.xcassets */; };
 		A7587CCB203E4D7D003060DE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7587CC9203E4D7D003060DE /* LaunchScreen.storyboard */; };
 		A7587CD5203E4F26003060DE /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7587CD4203E4F26003060DE /* TableViewController.swift */; };
+		A7A6A479204704DB008DDA5F /* Frase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A6A478204704DB008DDA5F /* Frase.swift */; };
 		A7B482FF203F611A00E0346B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A7B482FE203F611A00E0346B /* GoogleService-Info.plist */; };
-		A7B48301203F656400E0346B /* Frases.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B48300203F656400E0346B /* Frases.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,8 +28,8 @@
 		A7587CCA203E4D7D003060DE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A7587CCC203E4D7D003060DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A7587CD4203E4F26003060DE /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		A7A6A478204704DB008DDA5F /* Frase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Frase.swift; sourceTree = "<group>"; };
 		A7B482FE203F611A00E0346B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		A7B48300203F656400E0346B /* Frases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Frases.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,13 +83,13 @@
 			isa = PBXGroup;
 			children = (
 				A7587CD4203E4F26003060DE /* TableViewController.swift */,
-				A7B482FE203F611A00E0346B /* GoogleService-Info.plist */,
 				A7587CC0203E4D7D003060DE /* AppDelegate.swift */,
+				A7A6A478204704DB008DDA5F /* Frase.swift */,
 				A7587CC4203E4D7D003060DE /* Main.storyboard */,
 				A7587CC7203E4D7D003060DE /* Assets.xcassets */,
 				A7587CC9203E4D7D003060DE /* LaunchScreen.storyboard */,
+				A7B482FE203F611A00E0346B /* GoogleService-Info.plist */,
 				A7587CCC203E4D7D003060DE /* Info.plist */,
-				A7B48300203F656400E0346B /* Frases.swift */,
 			);
 			path = "Frases Divinas";
 			sourceTree = "<group>";
@@ -244,7 +244,7 @@
 			files = (
 				A7587CC1203E4D7D003060DE /* AppDelegate.swift in Sources */,
 				A7587CD5203E4F26003060DE /* TableViewController.swift in Sources */,
-				A7B48301203F656400E0346B /* Frases.swift in Sources */,
+				A7A6A479204704DB008DDA5F /* Frase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
