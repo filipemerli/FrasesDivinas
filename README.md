@@ -1,15 +1,9 @@
 # FrasesDivinas
 
-Este projeto cria mensagens "divinas" em um database do Firestore.
+Este projeto cria mensagens "divinas" em um database do Firebase, utilizando os servicos de Auth, Storage e Database (Realtime Database e CloudFirestore .
 
-Coisas a serem implementadas:
+Este app tem como principal objaetico criar uma rede social para o compartilhamento de frasas de efeitos de carater religioso.
 
-- Mostrar a data em um formato melhor (postado em 01/01/2018 às 13:00h).
+Existe uma tela principal de Login ou Criar conta, onde o usuario deve escolher uma imagem de perfil, entrar com um e-mail valido e criar um senha e um nome de usuario.
 
-- Melhorar a interface; dar cores e formas.
 
-- Melhorar a parte de inserir texto.
-
-- Verificar um método para Login, usando o Firebase Login.
-
-- Limitar a uma mensagem por dia postada, por usuário.

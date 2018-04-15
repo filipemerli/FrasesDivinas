@@ -17,12 +17,14 @@ struct Frase {
     var nome: String
     var conteudo: String
     var dataCriada: Date
+    var email: String
     
     var dictionary:[String: Any] {
         return [
             "nome": nome,
             "conteudo": conteudo,
-            "dataCriada": dataCriada
+            "dataCriada": dataCriada,
+            "email": email
         ]
     }
     
@@ -32,9 +34,10 @@ extension Frase : DocmentSerializable {
     init?(dictionary: [String: Any]) {
         guard let nome = dictionary["nome"] as? String,
             let conteudo = dictionary["conteudo"] as? String,
-            let dataCriada = dictionary["dataCriada"] as? Date else {
+            let dataCriada = dictionary["dataCriada"] as? Date,
+            let email = dictionary["email"] as? String else {
                 return nil
         }
-        self.init(nome: nome, conteudo: conteudo, dataCriada: dataCriada)
+        self.init(nome: nome, conteudo: conteudo, dataCriada: dataCriada, email: email)
     }
 }

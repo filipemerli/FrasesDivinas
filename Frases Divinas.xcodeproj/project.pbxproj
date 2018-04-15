@@ -8,12 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		234EB8D005309D184DCA6B2A /* Pods_Frases_Divinas.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1523FF2599F785DB8CD5DDF8 /* Pods_Frases_Divinas.framework */; };
+		A70052DE206B236B0090B64A /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70052DD206B236B0090B64A /* Image.swift */; };
+		A746733120751F1400DBE0DC /* Usuario.swift in Sources */ = {isa = PBXBuildFile; fileRef = A746733020751F1400DBE0DC /* Usuario.swift */; };
 		A7587CC1203E4D7D003060DE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7587CC0203E4D7D003060DE /* AppDelegate.swift */; };
 		A7587CC6203E4D7D003060DE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7587CC4203E4D7D003060DE /* Main.storyboard */; };
 		A7587CC8203E4D7D003060DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7587CC7203E4D7D003060DE /* Assets.xcassets */; };
 		A7587CCB203E4D7D003060DE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7587CC9203E4D7D003060DE /* LaunchScreen.storyboard */; };
 		A7587CD5203E4F26003060DE /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7587CD4203E4F26003060DE /* TableViewController.swift */; };
+		A75D65A8207A802F00A4F885 /* SignUpTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75D65A7207A802F00A4F885 /* SignUpTableViewController.swift */; };
+		A75D65AA207C207200A4F885 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75D65A9207C207200A4F885 /* LoginViewController.swift */; };
+		A75D65AC207C298900A4F885 /* SingInTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75D65AB207C298900A4F885 /* SingInTableViewController.swift */; };
+		A75D65AE208080AD00A4F885 /* GlobalVCExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75D65AD208080AD00A4F885 /* GlobalVCExtension.swift */; };
+		A75D65B52080F5F600A4F885 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75D65B42080F5F600A4F885 /* Reachability.swift */; };
 		A7A6A479204704DB008DDA5F /* Frase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A6A478204704DB008DDA5F /* Frase.swift */; };
+		A7ADEC18206B0D040007312C /* FirebaseRefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7ADEC17206B0D040007312C /* FirebaseRefs.swift */; };
 		A7B482FF203F611A00E0346B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A7B482FE203F611A00E0346B /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -21,6 +29,8 @@
 		1523FF2599F785DB8CD5DDF8 /* Pods_Frases_Divinas.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Frases_Divinas.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		19AC0A2071F2D4AABC6791EB /* Pods-Frases Divinas.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Frases Divinas.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Frases Divinas/Pods-Frases Divinas.debug.xcconfig"; sourceTree = "<group>"; };
 		91BDFC5ABD90DC18E2A44A82 /* Pods-Frases Divinas.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Frases Divinas.release.xcconfig"; path = "Pods/Target Support Files/Pods-Frases Divinas/Pods-Frases Divinas.release.xcconfig"; sourceTree = "<group>"; };
+		A70052DD206B236B0090B64A /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
+		A746733020751F1400DBE0DC /* Usuario.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Usuario.swift; sourceTree = "<group>"; };
 		A7587CBD203E4D7D003060DE /* Frases Divinas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Frases Divinas.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7587CC0203E4D7D003060DE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A7587CC5203E4D7D003060DE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -28,7 +38,13 @@
 		A7587CCA203E4D7D003060DE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A7587CCC203E4D7D003060DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A7587CD4203E4F26003060DE /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		A75D65A7207A802F00A4F885 /* SignUpTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpTableViewController.swift; sourceTree = "<group>"; };
+		A75D65A9207C207200A4F885 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		A75D65AB207C298900A4F885 /* SingInTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingInTableViewController.swift; sourceTree = "<group>"; };
+		A75D65AD208080AD00A4F885 /* GlobalVCExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVCExtension.swift; sourceTree = "<group>"; };
+		A75D65B42080F5F600A4F885 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		A7A6A478204704DB008DDA5F /* Frase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Frase.swift; sourceTree = "<group>"; };
+		A7ADEC17206B0D040007312C /* FirebaseRefs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseRefs.swift; sourceTree = "<group>"; };
 		A7B482FE203F611A00E0346B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -82,9 +98,9 @@
 		A7587CBF203E4D7D003060DE /* Frases Divinas */ = {
 			isa = PBXGroup;
 			children = (
-				A7587CD4203E4F26003060DE /* TableViewController.swift */,
 				A7587CC0203E4D7D003060DE /* AppDelegate.swift */,
-				A7A6A478204704DB008DDA5F /* Frase.swift */,
+				A7ADEC16206B0CA90007312C /* Controller */,
+				A7ADEC15206B0C920007312C /* Model */,
 				A7587CC4203E4D7D003060DE /* Main.storyboard */,
 				A7587CC7203E4D7D003060DE /* Assets.xcassets */,
 				A7587CC9203E4D7D003060DE /* LaunchScreen.storyboard */,
@@ -92,6 +108,38 @@
 				A7587CCC203E4D7D003060DE /* Info.plist */,
 			);
 			path = "Frases Divinas";
+			sourceTree = "<group>";
+		};
+		A75D65AF2080DB8600A4F885 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				A75D65AD208080AD00A4F885 /* GlobalVCExtension.swift */,
+				A75D65B42080F5F600A4F885 /* Reachability.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		A7ADEC15206B0C920007312C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A7A6A478204704DB008DDA5F /* Frase.swift */,
+				A7ADEC17206B0D040007312C /* FirebaseRefs.swift */,
+				A70052DD206B236B0090B64A /* Image.swift */,
+				A746733020751F1400DBE0DC /* Usuario.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		A7ADEC16206B0CA90007312C /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				A7587CD4203E4F26003060DE /* TableViewController.swift */,
+				A75D65A7207A802F00A4F885 /* SignUpTableViewController.swift */,
+				A75D65AB207C298900A4F885 /* SingInTableViewController.swift */,
+				A75D65A9207C207200A4F885 /* LoginViewController.swift */,
+				A75D65AF2080DB8600A4F885 /* Extensions */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -124,7 +172,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Filipe Merli";
 				TargetAttributes = {
 					A7587CBC203E4D7D003060DE = {
@@ -244,7 +292,15 @@
 			files = (
 				A7587CC1203E4D7D003060DE /* AppDelegate.swift in Sources */,
 				A7587CD5203E4F26003060DE /* TableViewController.swift in Sources */,
+				A746733120751F1400DBE0DC /* Usuario.swift in Sources */,
+				A7ADEC18206B0D040007312C /* FirebaseRefs.swift in Sources */,
+				A75D65AA207C207200A4F885 /* LoginViewController.swift in Sources */,
+				A75D65A8207A802F00A4F885 /* SignUpTableViewController.swift in Sources */,
 				A7A6A479204704DB008DDA5F /* Frase.swift in Sources */,
+				A75D65B52080F5F600A4F885 /* Reachability.swift in Sources */,
+				A75D65AE208080AD00A4F885 /* GlobalVCExtension.swift in Sources */,
+				A70052DE206B236B0090B64A /* Image.swift in Sources */,
+				A75D65AC207C298900A4F885 /* SingInTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,6 +340,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -291,6 +348,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -341,6 +399,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -348,6 +407,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
