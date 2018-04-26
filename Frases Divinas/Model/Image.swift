@@ -20,7 +20,7 @@ class Image {
     
     func saveProfileImage(_ userEmail: String, _ completion: @escaping (Error?) -> Void) {
         let imagemRedimensionada = image.resize()
-        if let imageData = UIImageJPEGRepresentation(imagemRedimensionada, 0.8) {
+        if let imageData = UIImageJPEGRepresentation(imagemRedimensionada, 0.5) {
             ref = StorageRef.profileImages.reference().child(userEmail)
             ref.putData(imageData, metadata: nil, completion: { (metaData, error) in
                 completion(error)

@@ -9,6 +9,7 @@
 import UIKit
 import Foundation
 import Firebase
+import Photos
 
 class SignUpTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -25,6 +26,7 @@ class SignUpTableViewController: UITableViewController, UIImagePickerControllerD
         }
     }
     
+    @IBOutlet weak var criarNovaContaButton: UIButton!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var nomeCompletoTextField: UITextField!
     @IBOutlet weak var nomeUsuarioTextField: UITextField!
@@ -33,6 +35,7 @@ class SignUpTableViewController: UITableViewController, UIImagePickerControllerD
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        criarNovaContaButton.layer.cornerRadius = 9
         emailTextField.delegate = self
         nomeCompletoTextField.delegate = self
         nomeUsuarioTextField.delegate = self
@@ -105,14 +108,23 @@ class SignUpTableViewController: UITableViewController, UIImagePickerControllerD
     // MARK: ImagePicker
     
     func pegarImagemLibrary() {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = .photoLibrary
-        present(imagePicker, animated: true, completion: nil)
+        verificarPermissao(completion: { _ in
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.allowsEditing = true
+            imagePicker.sourceType = .photoLibrary
+            self.present(imagePicker, animated: true, completion: nil)
+        })
+        
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+    @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
+            imagemPerfil = image
+            fotoPerfilView.image = imagemPerfil
+            fotoPerfilView.layer.cornerRadius = fotoPerfilView.bounds.width / 2.0
+            fotoPerfilView.layer.masksToBounds = true
+        } else if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             imagemPerfil = image
             fotoPerfilView.image = imagemPerfil
             fotoPerfilView.layer.cornerRadius = fotoPerfilView.bounds.width / 2.0
@@ -124,8 +136,28 @@ class SignUpTableViewController: UITableViewController, UIImagePickerControllerD
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
-
-
+    
+    // MARK: Verificar permissao da PhotoLibrary
+    
+    func verificarPermissao(completion:@escaping (Bool)->Void) {
+        if PHPhotoLibrary.authorizationStatus() != .authorized {
+            PHPhotoLibrary.requestAuthorization({ (status) in
+                if status == .authorized {
+                    DispatchQueue.main.async(execute: {
+                        completion(true)
+                    })
+                } else {
+                    DispatchQueue.main.async(execute: {
+                        completion(false)
+                    })
+                }
+            })
+        } else {
+            DispatchQueue.main.async(execute: {
+                completion(true)
+            })
+        }
+    }
 }
 
 // MARK: TextFields Delegate

@@ -11,6 +11,21 @@ import Firebase
 
 class LoginViewController: UIViewController {
 
+    // MARK: Buttons
+    
+    @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var criarContaButton: UIButton!
+    
+    
+    // MARK: ViewDidLoad
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        loginButton.layer.cornerRadius = 9
+        criarContaButton.layer.cornerRadius = 9
+    }
+    
+    
     // MARK: ViewDidAppear
     
     override func viewDidAppear(_ animated: Bool) {

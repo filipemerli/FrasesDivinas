@@ -25,7 +25,7 @@ class TableViewController: UITableViewController {
 
     let atributosTituloTexto = [NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline), NSAttributedStringKey.foregroundColor: UIColor(red: 0.298, green: 0.259, blue: 1.0, alpha: 1.0)]
     let atributoPadrao: [NSAttributedStringKey: Any] = [
-        NSAttributedStringKey.font: UIFont(name: "Snell Roundhand", size: 26.0)!,
+        NSAttributedStringKey.font: UIFont(name: "Optima-Italic", size: 20.0)!,
         NSAttributedStringKey.foregroundColor: UIColor(red: 0.298, green: 0.259, blue: 1.0, alpha: 1.0)
     ]
     
@@ -143,10 +143,17 @@ class TableViewController: UITableViewController {
         }
     }
     
+    //MARK: Log Out
+    
     @IBAction func logOut(_ sender: Any) {
+        let confirmar = UIAlertController(title: "Deseja mesmo sair?", message: "", preferredStyle: .alert)
+        confirmar.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: nil))
+        confirmar.addAction(UIAlertAction(title: "Sair", style: .default, handler: { (sair) in
+            try! Auth.auth().signOut()
+            self.performSegue(withIdentifier: "ExibirLoginScreen", sender: nil)
+        }))
+        present(confirmar, animated: true, completion: nil)
         
-        try! Auth.auth().signOut()
-        performSegue(withIdentifier: "ExibirLoginScreen", sender: nil)
     }
     
     // MARK: - Table view data source
@@ -211,6 +218,24 @@ class TableViewController: UITableViewController {
         } else {
             mostrarAlerta("Sem conexão com a internet.\nCertifique-se e tente novamente!")
         }
+
+        /*
+        let msg = fraseArray[indexPath.row].conteudo
+        let urlWhats = "whatsapp://send?text=\(msg)"
+        if let urlString = urlWhats.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
+            if let whatsappURL = NSURL(string: urlString) {
+                if UIApplication.shared.canOpenURL(whatsappURL as URL){
+                    UIApplication.shared.open(whatsappURL as URL, options: [:], completionHandler: nil)
+                } else {
+                    print("Error 03")
+                }
+            }else{
+                print("Error 02")
+            }
+        } else {
+            print("Error 01")
+        }
+        */
     }
     
     // MARK: Alertas

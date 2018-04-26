@@ -13,6 +13,7 @@ class SingInTableViewController: UITableViewController {
     
     // MARK: Definicoes
 
+    @IBOutlet weak var logarNovamenteButton: UIButton!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var senhaTextField: UITextField!
     
@@ -24,7 +25,7 @@ class SingInTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        logarNovamenteButton.layer.cornerRadius = 9
         emailTextField.delegate = self
         senhaTextField.delegate = self
     }
