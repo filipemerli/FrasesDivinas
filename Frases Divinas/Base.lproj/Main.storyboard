@@ -50,9 +50,9 @@
                             <outlet property="delegate" destination="AL9-ps-vyJ" id="2k9-Dr-OLJ"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Frases Divinas" id="t4g-QE-zK9">
+                    <navigationItem key="navigationItem" title="Frases Divinas" largeTitleDisplayMode="always" id="t4g-QE-zK9">
                         <barButtonItem key="leftBarButtonItem" title="Sair" id="iRZ-PH-IIX">
-                            <color key="tintColor" red="0.29910977119999999" green="0.25876831150000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" red="0.58072251080000004" green="0.066734083" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="logOut:" destination="AL9-ps-vyJ" id="TZB-KK-hpi"/>
                             </connections>
@@ -70,7 +70,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PDh-sN-wjB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="158" y="328"/>
+            <point key="canvasLocation" x="-714" y="1251"/>
         </scene>
         <!--Criar Nova Conta-->
         <scene sceneID="Dsq-mg-45L">
@@ -252,7 +252,7 @@
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vOG-xZ-f67">
                                                     <rect key="frame" x="8" y="0.0" width="359" height="49.5"/>
-                                                    <color key="backgroundColor" red="0.29910977119999999" green="0.25876831150000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="backgroundColor" red="0.29803921568627451" green="0.25882352941176467" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <state key="normal" title="Criar Nova Conta">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
@@ -528,8 +528,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <textAttributes key="titleTextAttributes">
-                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
-                            <color key="textColor" red="0.29910977119999999" green="0.25876831150000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                             <color key="textShadowColor" cocoaTouchSystemColor="lightTextColor"/>
                         </textAttributes>
                     </navigationBar>
@@ -539,7 +538,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TTr-qm-CCQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-634" y="328"/>
+            <point key="canvasLocation" x="-1562" y="1251"/>
         </scene>
     </scenes>
     <resources>

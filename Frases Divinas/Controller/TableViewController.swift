@@ -25,8 +25,8 @@ class TableViewController: UITableViewController {
 
     let atributosTituloTexto = [NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline), NSAttributedStringKey.foregroundColor: UIColor(red: 0.298, green: 0.259, blue: 1.0, alpha: 1.0)]
     let atributoPadrao: [NSAttributedStringKey: Any] = [
-        NSAttributedStringKey.font: UIFont(name: "Optima-Italic", size: 20.0)!,
-        NSAttributedStringKey.foregroundColor: UIColor(red: 0.298, green: 0.259, blue: 1.0, alpha: 1.0)
+        NSAttributedStringKey.font: UIFont(name: "ChalkboardSE-Regular", size: 24.0)!,
+        //NSAttributedStringKey.foregroundColor: UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.8)
     ]
     
     //MARK: ViewDidiLoad e ViewDidAppear
@@ -37,6 +37,7 @@ class TableViewController: UITableViewController {
         db = Firestore.firestore()
         loadData()
         verificarUpdates()
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -183,7 +184,7 @@ class TableViewController: UITableViewController {
         
         return cell
     }
-    
+    /*
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let temInternet = Reachability.temConexaoDeInternet()
         if temInternet {
@@ -219,24 +220,79 @@ class TableViewController: UITableViewController {
             mostrarAlerta("Sem conexão com a internet.\nCertifique-se e tente novamente!")
         }
 
-        /*
-        let msg = fraseArray[indexPath.row].conteudo
+    }
+    */
+    override func tableView(_ tableView: UITableView, editActionsForRowAt linha: IndexPath) -> [UITableViewRowAction]? {
+        let compartilhar = UITableViewRowAction(style: .normal, title: "Zap") {
+            (action: UITableViewRowAction, indexPath: IndexPath) in
+            self.compartilharWhatsapp(linha: linha)
+        }
+        compartilhar.backgroundColor = UIColor(red: 0.145, green: 0.8275, blue: 0.4, alpha: 1.0)
+        let infoDoUser = UITableViewRowAction(style: .normal, title: "Info") {
+            (action: UITableViewRowAction, indexPath: IndexPath) in
+            self.infoDoUsuario(linha: linha)
+        }
+        infoDoUser.backgroundColor = UIColor(red: 0.298, green: 0.259, blue: 1.0, alpha: 1.0)
+        return [compartilhar, infoDoUser]
+    }
+    
+    //MARK: Funcoes linhas da table
+    
+    func infoDoUsuario(linha: IndexPath) {
+        let temInternet = Reachability.temConexaoDeInternet()
+        if temInternet {
+            let emailSelecionado = fraseArray[linha.row].email
+            let opcoesAlerta = UIAlertController(title: "\n\n\n\nSobre o autor", message: "Usuário: \(emailSelecionado)", preferredStyle: .alert)
+            
+            opcoesAlerta.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(opcoesAlerta, animated: true) {
+                let imageView = UIImageView(frame: CGRect(x: ((opcoesAlerta.view.frame.width / 2) - (75 / 2)) , y: 15, width: 75, height: 75))
+                opcoesAlerta.view.addSubview(imageView)
+                imageView.layer.cornerRadius = imageView.bounds.width / 2.0
+                imageView.layer.masksToBounds = true
+                
+                let spinner = TableViewController.displaySpinner(onView: imageView)
+                self.getProfileImage(emailSelecionado) { (url) in
+                    if url != nil {
+                        let task = URLSession.shared.dataTask(with: url!) { data, response, error in
+                            guard let data = data, error == nil else { return }
+                            DispatchQueue.main.async() {
+                                let imagemPerfilpp = UIImage(data: data)
+                                imageView.image = imagemPerfilpp
+                                TableViewController.removeSpinner(spinner: spinner)
+                            }
+                        }
+                        task.resume()
+                    }else {
+                        self.mostrarAlerta("Usuario com insformações incompletas.")
+                    }
+                }
+                
+            }
+        } else {
+            mostrarAlerta("Sem conexão com a internet.\nCertifique-se e tente novamente!")
+        }
+        
+    }
+    
+    func compartilharWhatsapp(linha: IndexPath) {
+        let msg = fraseArray[linha.row].conteudo
         let urlWhats = "whatsapp://send?text=\(msg)"
         if let urlString = urlWhats.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
             if let whatsappURL = NSURL(string: urlString) {
                 if UIApplication.shared.canOpenURL(whatsappURL as URL){
                     UIApplication.shared.open(whatsappURL as URL, options: [:], completionHandler: nil)
                 } else {
-                    print("Error 03")
+                    debugPrint("Error 03")
                 }
             }else{
-                print("Error 02")
+                debugPrint("Error 02")
             }
         } else {
-            print("Error 01")
+            debugPrint("Error 01")
         }
-        */
     }
+    
     
     // MARK: Alertas
     
