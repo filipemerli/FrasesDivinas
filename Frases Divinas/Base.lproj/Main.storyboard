@@ -52,13 +52,12 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Frases Divinas" largeTitleDisplayMode="always" id="t4g-QE-zK9">
                         <barButtonItem key="leftBarButtonItem" title="Sair" id="iRZ-PH-IIX">
-                            <color key="tintColor" red="0.58072251080000004" green="0.066734083" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="logOut:" destination="AL9-ps-vyJ" id="TZB-KK-hpi"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="compose" id="Zqq-KS-dgy">
-                            <color key="tintColor" red="0.29910977119999999" green="0.25876831150000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="novaFrase:" destination="AL9-ps-vyJ" id="fQO-mI-bT6"/>
                             </connections>
