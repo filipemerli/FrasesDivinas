@@ -198,7 +198,7 @@ class TableViewController: UITableViewController {
             self.infoDoUsuario(linha: linha)
         })
         //infoDoUser.backgroundColor = UIColor(red: 0.298, green: 0.259, blue: 1.0, alpha: 1.0)
-        infoDoUser.image = #imageLiteral(resourceName: "icon_info20x20")
+        infoDoUser.image = #imageLiteral(resourceName: "icon_infoUser_white")
         return UISwipeActionsConfiguration(actions: [compartilhar, infoDoUser])
     }
     
