@@ -15,6 +15,9 @@ class TableViewController: UITableViewController {
     
     //MARK: Definicoes
     
+    @IBOutlet var novaFraseView: UIView!
+    
+    
     var ref: StorageReference!
     var db: Firestore!
     var fraseArray = [Frase]()
@@ -24,7 +27,7 @@ class TableViewController: UITableViewController {
     var imageFromDb: Image?
 
     let atributoPadrao: [NSAttributedStringKey: Any] = [
-        NSAttributedStringKey.font: UIFont(name: "Copperplate", size: 24.0)!,
+        NSAttributedStringKey.font: UIFont(name: "Georgia-BoldItalic", size: 20.0)!,
         NSAttributedStringKey.foregroundColor: UIColor(red: 0.0, green: 0.0, blue: 0.4, alpha: 1.0)
     ]
     
@@ -198,7 +201,7 @@ class TableViewController: UITableViewController {
             self.infoDoUsuario(linha: linha)
         })
         //infoDoUser.backgroundColor = UIColor(red: 0.298, green: 0.259, blue: 1.0, alpha: 1.0)
-        infoDoUser.image = #imageLiteral(resourceName: "icon_infoUser_white")
+        //infoDoUser.image = #imageLiteral(resourceName: "icon_infoUser_white")
         return UISwipeActionsConfiguration(actions: [compartilhar, infoDoUser])
     }
     
@@ -278,6 +281,17 @@ class TableViewController: UITableViewController {
             }
         }
     }
+    
+    @IBAction func addTeste(_ sender: Any) {
+        self.view.addSubview(novaFraseView)
+        novaFraseView.center = self.view.center
+        
+    }
+    @IBAction func novaFraseDismiss(_ sender: Any) {
+        novaFraseView.removeFromSuperview()
+        
+    }
+    
     
     
 }
