@@ -7,7 +7,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -58,82 +57,19 @@
                                 <action selector="logOut:" destination="AL9-ps-vyJ" id="TZB-KK-hpi"/>
                             </connections>
                         </barButtonItem>
-                        <rightBarButtonItems>
-                            <barButtonItem systemItem="compose" id="Zqq-KS-dgy">
-                                <connections>
-                                    <action selector="novaFrase:" destination="AL9-ps-vyJ" id="fQO-mI-bT6"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem systemItem="add" id="66y-iL-Q3s">
-                                <connections>
-                                    <action selector="addTeste:" destination="AL9-ps-vyJ" id="YEq-nQ-Tmh"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="Zqq-KS-dgy">
+                            <connections>
+                                <action selector="novaFrase:" destination="AL9-ps-vyJ" id="fQO-mI-bT6"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="novaFraseView" destination="MNy-kW-0F9" id="nYb-Xw-bET"/>
                         <segue destination="9ZK-HO-Kc5" kind="presentation" identifier="ExibirLoginScreen" id="71Z-BZ-OBN"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PDh-sN-wjB" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <view contentMode="scaleToFill" id="MNy-kW-0F9">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon-App-72x72" translatesAutoresizingMaskIntoConstraints="NO" id="axm-yo-5s8">
-                            <rect key="frame" x="137.5" y="0.0" width="100" height="100"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="100" id="Bep-2P-ZU7"/>
-                                <constraint firstAttribute="width" constant="100" id="GOJ-On-Irl"/>
-                            </constraints>
-                        </imageView>
-                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" text="KU" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="xdf-XT-hnm">
-                            <rect key="frame" x="16" y="101" width="343" height="205"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                        </textView>
-                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7p5-CA-uof">
-                            <rect key="frame" x="0.0" y="325" width="56" height="50"/>
-                            <color key="backgroundColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="50" id="bwX-L2-Wnv"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                            <state key="normal" title="Cancel">
-                                <color key="titleColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </state>
-                            <connections>
-                                <action selector="novaFraseDismiss:" destination="AL9-ps-vyJ" eventType="touchUpInside" id="58K-Xn-kSl"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WrM-mC-qVc">
-                            <rect key="frame" x="345" y="325" width="30" height="50"/>
-                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="50" id="wcW-Ea-L0j"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                            <state key="normal" title="OK"/>
-                        </button>
-                    </subviews>
-                    <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <constraints>
-                        <constraint firstItem="axm-yo-5s8" firstAttribute="top" secondItem="9aa-33-hB9" secondAttribute="top" id="7MD-KX-6ra"/>
-                        <constraint firstItem="xdf-XT-hnm" firstAttribute="leading" secondItem="9aa-33-hB9" secondAttribute="leading" constant="16" id="BUQ-N0-0ex"/>
-                        <constraint firstItem="7p5-CA-uof" firstAttribute="leading" secondItem="9aa-33-hB9" secondAttribute="leading" id="Eth-sK-Pcx"/>
-                        <constraint firstItem="9aa-33-hB9" firstAttribute="trailing" secondItem="xdf-XT-hnm" secondAttribute="trailing" constant="16" id="GT5-82-jPH"/>
-                        <constraint firstItem="xdf-XT-hnm" firstAttribute="bottom" secondItem="7p5-CA-uof" secondAttribute="bottom" id="hnX-g4-jpz"/>
-                        <constraint firstItem="xdf-XT-hnm" firstAttribute="top" secondItem="axm-yo-5s8" secondAttribute="top" id="paT-zh-gZe"/>
-                        <constraint firstItem="WrM-mC-qVc" firstAttribute="trailing" secondItem="9aa-33-hB9" secondAttribute="trailing" id="wTk-Kr-2In"/>
-                        <constraint firstItem="WrM-mC-qVc" firstAttribute="leading" secondItem="7p5-CA-uof" secondAttribute="trailing" id="z6E-13-ncJ"/>
-                        <constraint firstItem="axm-yo-5s8" firstAttribute="centerX" secondItem="9aa-33-hB9" secondAttribute="centerX" id="zPi-Kg-aLh"/>
-                    </constraints>
-                    <viewLayoutGuide key="safeArea" id="9aa-33-hB9"/>
-                </view>
             </objects>
-            <point key="canvasLocation" x="-714.39999999999998" y="1250.824587706147"/>
+            <point key="canvasLocation" x="-714" y="1251"/>
         </scene>
         <!--Criar Nova Conta-->
         <scene sceneID="Dsq-mg-45L">
@@ -591,8 +527,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <textAttributes key="titleTextAttributes">
-                            <fontDescription key="fontDescription" name="Georgia-BoldItalic" family="Georgia" pointSize="20"/>
-                            <color key="textColor" red="0.12892784012222222" green="0.1063579395" blue="0.32673213879166663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                             <color key="textShadowColor" cocoaTouchSystemColor="lightTextColor"/>
                         </textAttributes>
                     </navigationBar>
@@ -607,7 +542,6 @@
     </scenes>
     <resources>
         <image name="FrasesDivinasBG" width="2340" height="4160"/>
-        <image name="Icon-App-72x72" width="72" height="72"/>
         <image name="icon_email" width="128" height="96"/>
         <image name="icon_password" width="128" height="128"/>
         <image name="icon_profile" width="128" height="128"/>
