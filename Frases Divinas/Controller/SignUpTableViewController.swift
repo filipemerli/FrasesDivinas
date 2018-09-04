@@ -58,7 +58,7 @@ class SignUpTableViewController: UITableViewController, UIImagePickerControllerD
         let spinner = SingInTableViewController.displaySpinner(onView: self.view)
         if (emailTextField.text != "" && criarSenhaTextField.text != "" && nomeUsuarioTextField.text != "" && nomeCompletoTextField.text != "") {
             let nomeUsuario = nomeUsuarioTextField.text!
-            let email = emailTextField.text!
+            let email = emailTextField.text!.trimmingCharacters(in: .whitespaces)
             let senha = criarSenhaTextField.text!
             let nomeCompleto = nomeCompletoTextField.text!
             DispatchQueue.main.async {
@@ -76,7 +76,7 @@ class SignUpTableViewController: UITableViewController, UIImagePickerControllerD
                                 Auth.auth().signIn(withEmail: email, password: senha, completion: { (dbUser, error) in
                                     if error != nil {
                                         SingInTableViewController.removeSpinner(spinner: spinner)
-                                        self.mostrarAlerta("Erro ao logar com novo usuário. Verifique sua conexão com a internet e tente logar.")
+                                        self.mostrarAlerta("Erro ao logar com novo usuário. Verifique sua conexão com a internet e tente logar.Erro = \(error) ?? Desconhecido")
                                     }else {
                                         SingInTableViewController.removeSpinner(spinner: spinner)
                                         self.dismiss(animated: true, completion: nil)

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9Fh-yo-68N">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9Fh-yo-68N">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -64,12 +64,73 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="logOutButton" destination="iRZ-PH-IIX" id="tD2-vx-CuZ"/>
+                        <outlet property="novaFraseButton" destination="Zqq-KS-dgy" id="Oh9-Lw-M7H"/>
+                        <outlet property="novaFraseCAncelBtn" destination="DCl-H9-ojf" id="n1A-mr-j3j"/>
+                        <outlet property="novaFraseOkBtn" destination="HcR-m5-MvB" id="Iow-xq-Co6"/>
+                        <outlet property="novaFraseTextView" destination="mKb-7d-8a8" id="AzN-Be-zcd"/>
+                        <outlet property="popUpView" destination="I6u-yD-9h8" id="5xM-d4-s3R"/>
                         <segue destination="9ZK-HO-Kc5" kind="presentation" identifier="ExibirLoginScreen" id="71Z-BZ-OBN"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PDh-sN-wjB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="I6u-yD-9h8">
+                    <rect key="frame" x="0.0" y="0.0" width="304" height="211"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Nova Frase:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ECt-du-pAl">
+                            <rect key="frame" x="92" y="0.0" width="121" height="33"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Sua frase aqui!" translatesAutoresizingMaskIntoConstraints="NO" id="mKb-7d-8a8">
+                            <rect key="frame" x="18" y="33" width="268" height="128"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <fontDescription key="fontDescription" name="Georgia-BoldItalic" family="Georgia" pointSize="16"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        </textView>
+                        <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="qRz-AO-bC1">
+                            <rect key="frame" x="0.0" y="171" width="304" height="40"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DCl-H9-ojf" userLabel="Nova Frase Cancel Btn">
+                                    <rect key="frame" x="0.0" y="0.0" width="151.5" height="40"/>
+                                    <color key="backgroundColor" red="0.97060106561660198" green="0.98021097715736039" blue="0.98021097715736039" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                    <state key="normal" title="Cancelar"/>
+                                    <connections>
+                                        <action selector="dismissPopUp:" destination="AL9-ps-vyJ" eventType="touchUpInside" id="OqF-ox-ZjF"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HcR-m5-MvB">
+                                    <rect key="frame" x="152.5" y="0.0" width="151.5" height="40"/>
+                                    <color key="backgroundColor" red="0.97254901960784312" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <state key="normal" title="OK"/>
+                                    <connections>
+                                        <action selector="uparNovaFrase:" destination="AL9-ps-vyJ" eventType="touchUpInside" id="mfP-SD-tqh"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="DCl-H9-ojf" firstAttribute="height" secondItem="qRz-AO-bC1" secondAttribute="height" id="3g4-F7-VXZ"/>
+                                <constraint firstAttribute="height" constant="40" id="haJ-FW-ux3"/>
+                                <constraint firstItem="HcR-m5-MvB" firstAttribute="height" secondItem="qRz-AO-bC1" secondAttribute="height" id="x2M-UZ-3aj"/>
+                            </constraints>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" red="0.93914366883116884" green="0.93914366883116884" blue="0.93914366883116884" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="BtI-qX-n3c" firstAttribute="bottom" secondItem="qRz-AO-bC1" secondAttribute="bottom" id="YIK-6U-dnZ"/>
+                        <constraint firstItem="qRz-AO-bC1" firstAttribute="leading" secondItem="BtI-qX-n3c" secondAttribute="leading" id="j8S-tw-4np"/>
+                        <constraint firstItem="BtI-qX-n3c" firstAttribute="trailing" secondItem="qRz-AO-bC1" secondAttribute="trailing" id="txz-Kx-bIf"/>
+                    </constraints>
+                    <viewLayoutGuide key="safeArea" id="BtI-qX-n3c"/>
+                </view>
             </objects>
-            <point key="canvasLocation" x="-714" y="1251"/>
+            <point key="canvasLocation" x="-714.39999999999998" y="1250.824587706147"/>
         </scene>
         <!--Criar Nova Conta-->
         <scene sceneID="Dsq-mg-45L">
@@ -85,7 +146,7 @@
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QIZ-ou-fbJ">
                                     <rect key="frame" x="119.5" y="90" width="136" height="30"/>
-                                    <color key="tintColor" red="0.29910977119999999" green="0.25876831150000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="tintColor" red="1" green="0.52034810359999994" blue="0.14559000599999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <state key="normal" title="Mudar foto de perfil"/>
                                     <connections>
                                         <action selector="mudarFotoPerfil:" destination="MMw-6a-6Nt" eventType="touchUpInside" id="aNW-Sd-Y6I"/>
@@ -251,7 +312,7 @@
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vOG-xZ-f67">
                                                     <rect key="frame" x="8" y="0.0" width="359" height="49.5"/>
-                                                    <color key="backgroundColor" red="0.29803921568627451" green="0.25882352941176467" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="backgroundColor" red="1" green="0.52034810359999994" blue="0.14559000599999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <state key="normal" title="Criar Nova Conta">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
@@ -279,7 +340,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Criar Nova Conta" id="gHd-TT-2Eg">
                         <barButtonItem key="leftBarButtonItem" title="Voltar" id="l8X-Z4-sRk">
-                            <color key="tintColor" red="0.29910977119999999" green="0.25876831150000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" red="1" green="0.52034810362088391" blue="0.14559000603848804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="voltarPressed:" destination="MMw-6a-6Nt" id="eJi-nM-0Te"/>
                             </connections>
@@ -403,7 +464,7 @@
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vUM-9U-v1b">
                                                     <rect key="frame" x="8" y="0.0" width="359" height="49.5"/>
-                                                    <color key="backgroundColor" red="0.29910977119999999" green="0.25876831150000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="backgroundColor" red="1" green="0.52034810359999994" blue="0.14559000599999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <state key="normal" title="Logar Novamente">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
@@ -431,7 +492,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Logar em Frases Divinas" id="Rrm-Vk-NKC">
                         <barButtonItem key="leftBarButtonItem" title="Voltar" id="9Zz-4d-dR0">
-                            <color key="tintColor" red="0.29910977119999999" green="0.25876831150000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" red="1" green="0.52034810359999994" blue="0.14559000599999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="voltarPressed:" destination="ONO-T8-7Gg" id="Pvz-Yd-fBV"/>
                             </connections>
@@ -494,7 +555,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fgo-Mf-MoO">
                                         <rect key="frame" x="8" y="551" width="359" height="50"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                        <color key="backgroundColor" red="0.29910977119999999" green="0.25876831150000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="1" green="0.52034810359999994" blue="0.14559000599999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <state key="normal" title="Login">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -527,7 +588,8 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <textAttributes key="titleTextAttributes">
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                            <fontDescription key="fontDescription" name="Georgia-BoldItalic" family="Georgia" pointSize="20"/>
+                            <color key="textColor" red="0.12892784012222222" green="0.1063579395" blue="0.32673213879166663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <color key="textShadowColor" cocoaTouchSystemColor="lightTextColor"/>
                         </textAttributes>
                     </navigationBar>

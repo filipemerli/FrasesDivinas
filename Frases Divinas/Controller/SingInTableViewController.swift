@@ -34,7 +34,7 @@ class SingInTableViewController: UITableViewController {
     
     @IBAction func signInPressed(_ sender: Any) {
         
-        let email = emailTextField.text!
+        let email = emailTextField.text!.trimmingCharacters(in: .whitespaces)
         let senha = senhaTextField.text!
         
         guard email.count > 0 else {
@@ -65,7 +65,6 @@ class SingInTableViewController: UITableViewController {
                                 self.recuperarSenhaEmail("Verifique os dados e tente novamente!")
                             }
                             SingInTableViewController.removeSpinner(spinner: spinner)
-                            print("Error = \(String(describing: error?.localizedDescription))")
                         }
                     }
                 }

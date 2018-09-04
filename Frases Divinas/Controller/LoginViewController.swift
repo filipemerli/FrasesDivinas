@@ -13,6 +13,7 @@ class LoginViewController: UIViewController {
 
     // MARK: Buttons
     
+    //static let showLoginVC = "ExibirLoginScreen"
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var criarContaButton: UIButton!
     
@@ -32,14 +33,13 @@ class LoginViewController: UIViewController {
         super.viewDidAppear(animated)
         let temInternet = Reachability.temConexaoDeInternet()
         if temInternet == false {
-            mostrarAlerta("Sem conexão de internet!\nLigue o Wi-Fi ou 'dados móveis'.")
-        }
-        DispatchQueue.main.async {
-            Auth.auth().addStateDidChangeListener { (auth, user) in
-                if user != nil {
-                    self.dismiss(animated: false, completion: nil)
-                } else {
-                    debugPrint("Auth = \(String(describing: auth.debugDescription))")
+            mostrarAlerta("Sem conexão de internet!\nLigue o Wi-Fi ou 'dados móveis' e tente novamente.")
+        } else {
+            DispatchQueue.main.async {
+                Auth.auth().addStateDidChangeListener { (auth, user) in
+                    if user != nil {
+                        self.dismiss(animated: false, completion: nil)
+                    } 
                 }
             }
         }
