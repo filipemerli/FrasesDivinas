@@ -38,16 +38,18 @@ class TableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        db = Firestore.firestore()
-        loadData()
-        verificarUpdates()
+        novaFraseTextView.delegate = self
         configNovaFrseView()
+        db = Firestore.firestore()
+        //loadData()
+        verificarUpdates()
+        
 
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        DispatchQueue.main.async {
+        //DispatchQueue.main.async {
             Auth.auth().addStateDidChangeListener({ (auth, user) in
                 if user != nil {
                     self.uid = (user?.uid)!
@@ -57,8 +59,9 @@ class TableViewController: UITableViewController {
                     self.performSegue(withIdentifier: "ExibirLoginScreen", sender: nil)
                 }
             })
-        }
+        //}
     }
+    
     
     override func viewWillDisappear(_ animated: Bool) {
          super.viewWillDisappear(animated)
@@ -67,28 +70,37 @@ class TableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        subscribeToKeyboardNotifications()
+    }
+
+    func configNovaFrseView() {
+        //novaFraseTextView.delegate = self
+        popUpView.clipsToBounds = true
+        popUpView.layer.cornerRadius = 18
+        novaFraseTextView.clipsToBounds = true
+        novaFraseTextView.layer.cornerRadius = 12
+        novaFraseTextView.tag = 8
         let imagemBackGround = UIImage(named: "FrasesDivinasBGV3")
         let bgView = UIImageView(image: imagemBackGround)
         self.tableView.backgroundView = bgView
         bgView.contentMode = .scaleAspectFit
         bgView.alpha = 0.8
-        subscribeToKeyboardNotifications()
     }
-
     
     // MARK: Reload table cells
     
     func loadData() {
-       // let spinner = TableViewController.displaySpinner(onView: self.view)
+       let spinner = TableViewController.displaySpinner(onView: self.view)
         db.collection("frases").order(by: "dataCriada", descending: true).limit(to: 50).getDocuments() {
             querySnapshot, error in
             if error != nil {
+                TableViewController.removeSpinner(spinner: spinner)
                 self.mostrarAlerta("Erro ao carregar dados da internet.\nTente novamente. (Sair e Logar novamente :()")
             } else {
                 self.fraseArray = querySnapshot!.documents.compactMap({Frase(dictionary: $0.data())})
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
-                    //TableViewController.removeSpinner(spinner: spinner)
+                    TableViewController.removeSpinner(spinner: spinner)
                 }
             }
         }
@@ -106,7 +118,6 @@ class TableViewController: UITableViewController {
             self.emailUsuario = userEmail
         }) { (error) in
             self.mostrarAlerta("Erro ao atualizar informações. Verifique a sua conexão em configurações e volte aqui =)")
-            //debugPrint(error.localizedDescription)
         }
     }
     
@@ -149,7 +160,6 @@ class TableViewController: UITableViewController {
             popUpView.center = self.view.center
             popUpView.frame.origin.y -= 20
             novaFraseTextView.text = "Sua frase aqui!"
-
         } else {
             mostrarAlerta("Sem conexão com a internet.")
         }
@@ -304,13 +314,6 @@ class TableViewController: UITableViewController {
         dismissPopUpView()
     }
     
-    func configNovaFrseView() {
-        popUpView.clipsToBounds = true
-        popUpView.layer.cornerRadius = 18
-        novaFraseTextView.clipsToBounds = true
-        novaFraseTextView.layer.cornerRadius = 12
-    }
-    
     @IBAction func uparNovaFrase(_ sender: Any) {
         let temInternet = Reachability.temConexaoDeInternet()
         if temInternet {
@@ -333,7 +336,6 @@ class TableViewController: UITableViewController {
                 self.mostrarAlerta("Sua frase é muito longa ou muito curta!")
             }
         }
-        
     }
     
     func dismissPopUpView() {
@@ -350,7 +352,6 @@ class TableViewController: UITableViewController {
     }
 }
 
-
 // MARK: Teclado
 
 extension TableViewController: UINavigationControllerDelegate {
@@ -360,21 +361,17 @@ extension TableViewController: UINavigationControllerDelegate {
     }
     
     func getKeyboardHeight(_ notification:Notification) -> CGFloat {
-        
         let userInfo = notification.userInfo
         let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
         return keyboardSize.cgRectValue.height
     }
     
     func subscribeToKeyboardNotifications() {
-        
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        
     }
     
     func unsubscribeFromKeyboardNotifications() {
-        
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: nil)
     }
@@ -386,12 +383,15 @@ extension TableViewController: UINavigationControllerDelegate {
 }
 
 
-
-
-
-
-
-
+extension TableViewController: UITextViewDelegate {
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.tag == 8 {
+            novaFraseTextView.text = ""
+        }
+    }
+    
+}
 
 
 
