@@ -16,55 +16,71 @@ class TableViewController: UITableViewController {
     //MARK: Definicoes
     
     @IBOutlet var popUpView: UIView!
-    @IBOutlet weak var novaFraseButton: UIBarButtonItem!
     @IBOutlet weak var novaFraseOkBtn: UIButton!
     @IBOutlet weak var novaFraseCAncelBtn: UIButton!
     @IBOutlet weak var novaFraseTextView: UITextView!
     @IBOutlet weak var logOutButton: UIBarButtonItem!
+    @IBOutlet weak var listaTextField: UITextField!
+    @IBOutlet weak var filtroBtn: UIBarButtonItem!
     var ref: StorageReference!
     var db: Firestore!
     var fraseArray = [Frase]()
     var uid: String?
     var nomeUsuario: String?
     var emailUsuario: String?
+    var nomeCompleto: String?
     var imageFromDb: Image?
+    var comecouEscrever = false
+    var roundButton = UIButton()
+    let listaPicker = UIPickerView()
+    let categs = ["religiosas","músicas", "motivação", "poema", "autoral"]
+    var categariaAtual = "divinas"
+    var filtro = UserDefaults.standard.integer(forKey: "filtro")
+    var tabela = [Int]()
+    var frasesFiltra = [Frase]()
     
-    
-    let atributoPadrao: [NSAttributedStringKey: Any] = [
-        NSAttributedStringKey.font: UIFont(name: "Georgia-BoldItalic", size: 20.0)!,
-        NSAttributedStringKey.foregroundColor: #colorLiteral(red: 0.06274510175, green: 0, blue: 0.1921568662, alpha: 1)]
+    let atributoPadrao: [NSAttributedString.Key: Any] = [
+        NSAttributedString.Key.font: UIFont(name: "Georgia-BoldItalic", size: 20.0)!,
+        NSAttributedString.Key.foregroundColor: #colorLiteral(red: 0.06274510175, green: 0, blue: 0.1921568662, alpha: 1)]
     
     //MARK: ViewDidiLoad e ViewDidAppear
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        filtro = UserDefaults.standard.integer(forKey: "filtro")
+        self.refreshControl?.addTarget(self, action: #selector(recarregar), for: UIControl.Event.valueChanged)
+        self.roundButton = UIButton(type: .custom)
+        self.roundButton.setTitleColor(UIColor.orange, for: .normal)
+        self.roundButton.addTarget(self, action: #selector(novaFrase(_:)), for: UIControl.Event.touchUpInside)
         novaFraseTextView.delegate = self
-        configNovaFrseView()
+        listaPicker.delegate = self
+        listaPicker.dataSource = self
+        listaTextField.inputView = listaPicker
+        configTableView()
         db = Firestore.firestore()
-        //loadData()
         verificarUpdates()
-        
-
+        self.navigationController?.view.addSubview(roundButton)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        //DispatchQueue.main.async {
-            Auth.auth().addStateDidChangeListener({ (auth, user) in
-                if user != nil {
-                    self.uid = (user?.uid)!
-                    self.atualizarInfo()
+        Auth.auth().addStateDidChangeListener({ (auth, user) in
+            if  user != nil {
+                self.uid = (user?.uid)!
+                self.atualizarInfo()
+                self.loadData()
+            }else {
+                if UserDefaults.standard.bool(forKey: "logarAnonimamente") {
                     self.loadData()
-                }else {
+                } else {
                     self.performSegue(withIdentifier: "ExibirLoginScreen", sender: nil)
                 }
-            })
-        //}
-    }
-    
-    
+            }
+        })
+     }
+        
     override func viewWillDisappear(_ animated: Bool) {
-         super.viewWillDisappear(animated)
+        super.viewWillDisappear(animated)
         unsubscribeFromKeyboardNotifications()
     }
     
@@ -72,14 +88,22 @@ class TableViewController: UITableViewController {
         super.viewWillDisappear(animated)
         subscribeToKeyboardNotifications()
     }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        roundButton.layer.cornerRadius = roundButton.layer.frame.size.width/2
+        roundButton.clipsToBounds = true
+        roundButton.setImage(UIImage(named:"mais"), for: .normal)
+        roundButton.translatesAutoresizingMaskIntoConstraints = false
+        roundButton.alpha = 0.90
+        NSLayoutConstraint.activate([
+            roundButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -15),
+            roundButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -15),
+            roundButton.widthAnchor.constraint(equalToConstant: 55),
+            roundButton.heightAnchor.constraint(equalToConstant: 55)])
+    }
 
-    func configNovaFrseView() {
-        //novaFraseTextView.delegate = self
-        popUpView.clipsToBounds = true
-        popUpView.layer.cornerRadius = 18
-        novaFraseTextView.clipsToBounds = true
-        novaFraseTextView.layer.cornerRadius = 12
-        novaFraseTextView.tag = 8
+    func configTableView() {
         let imagemBackGround = UIImage(named: "FrasesDivinasBGV3")
         let bgView = UIImageView(image: imagemBackGround)
         self.tableView.backgroundView = bgView
@@ -87,19 +111,33 @@ class TableViewController: UITableViewController {
         bgView.alpha = 0.8
     }
     
+    func configNovaFrseView() {
+        popUpView.clipsToBounds = true
+        popUpView.layer.cornerRadius = 18
+        novaFraseTextView.clipsToBounds = true
+        novaFraseTextView.layer.cornerRadius = 12
+        novaFraseTextView.tag = 8
+        listaTextField.placeholder = "selecione"
+        listaPicker.showsSelectionIndicator = true
+    }
+    
     // MARK: Reload table cells
     
     func loadData() {
-       let spinner = TableViewController.displaySpinner(onView: self.view)
-        db.collection("frases").order(by: "dataCriada", descending: true).limit(to: 50).getDocuments() {
+        let spinner = TableViewController.displayWhiteSpin(naView: self.view)
+        filtroBtn.isEnabled = false
+        db.collection("frases").order(by: "dataCriada", descending: true).limit(to: 40).getDocuments() {
             querySnapshot, error in
             if error != nil {
+                self.refreshControl?.endRefreshing()
                 TableViewController.removeSpinner(spinner: spinner)
-                self.mostrarAlerta("Erro ao carregar dados da internet.\nTente novamente. (Sair e Logar novamente :()")
+                self.mostrarAlerta("Erro ao carregar dados da internet.\nTente novamente. (Sair e Logar novamente 🙁)")
             } else {
                 self.fraseArray = querySnapshot!.documents.compactMap({Frase(dictionary: $0.data())})
                 DispatchQueue.main.async {
-                    self.tableView.reloadData()
+                    self.criarFiltros(filtro: self.filtro)
+                    self.refreshControl?.endRefreshing()
+                    self.filtroBtn.isEnabled = true
                     TableViewController.removeSpinner(spinner: spinner)
                 }
             }
@@ -116,6 +154,8 @@ class TableViewController: UITableViewController {
             self.nomeUsuario = username
             let userEmail = value?["email"] as? String ?? ""
             self.emailUsuario = userEmail
+            let nomeCompleto = value?["nomeCompleto"] as? String ?? ""
+            self.nomeCompleto = nomeCompleto
         }) { (error) in
             self.mostrarAlerta("Erro ao atualizar informações. Verifique a sua conexão em configurações e volte aqui =)")
         }
@@ -133,8 +173,11 @@ class TableViewController: UITableViewController {
                     if diff.type == .added {
                         self.fraseArray.insert((Frase(dictionary: diff.document.data())!), at: 0)
                         DispatchQueue.main.async {
-                            self.tableView.reloadData()
+                            self.criarFiltros(filtro: self.filtro)
                         }
+                    }
+                    if diff.type == .removed {
+                        self.loadData()
                     }
                 }
         }
@@ -142,36 +185,46 @@ class TableViewController: UITableViewController {
     
     // MARK: Criar nova frase
     
-    @IBAction func novaFrase(_ sender: Any) {
-        let temInternet = Reachability.temConexaoDeInternet()
-        if temInternet {
-            novaFraseButton.isEnabled = false
-            logOutButton.isEnabled = false
-            tableView.allowsSelection = false
-            tableView.alwaysBounceVertical = false
-            let blurView = UIView()
-            blurView.frame = self.view.frame
-            blurView.backgroundColor = UIColor.gray
-            blurView.tag = 2
-            blurView.alpha = 0.5
-            view.addSubview(blurView)
-            popUpView.tag = 3
-            view.addSubview(popUpView)
-            popUpView.center = self.view.center
-            popUpView.frame.origin.y -= 20
-            novaFraseTextView.text = "Sua frase aqui!"
+    @objc func novaFrase(_ sender: Any) {
+        if UserDefaults.standard.bool(forKey: "logarAnonimamente") {
+            alertaSemLogin()
         } else {
-            mostrarAlerta("Sem conexão com a internet.")
+            let temInternet = Reachability.temConexaoDeInternet()
+            if temInternet {
+                if tabela.count != 0 {
+                    self.tableView.scrollToRow(at: [0,0], at: .top, animated: false)
+                }
+                configNovaFrseView()
+                logOutButton.isEnabled = false
+                filtroBtn.isEnabled = false
+                tableView.allowsSelection = false
+                tableView.alwaysBounceVertical = false
+                tableView.isScrollEnabled = false
+                let blurView = UIView()
+                blurView.frame = self.view.frame
+                blurView.backgroundColor = UIColor.gray
+                blurView.tag = 2
+                blurView.alpha = 0.5
+                view.addSubview(blurView)
+                popUpView.tag = 3
+                view.addSubview(popUpView)
+                popUpView.center = self.view.center
+                popUpView.frame.origin.y -= 50
+                novaFraseTextView.text = "Sua frase aqui!"
+            } else {
+                mostrarAlerta("Sem conexão com a internet.")
+            }
         }
     }
     
-    //MARK: Log Out
+    // MARK: Log Out
     
     @IBAction func logOut(_ sender: Any) {
         let confirmar = UIAlertController(title: "Deseja mesmo sair?", message: "", preferredStyle: .alert)
         confirmar.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: nil))
         confirmar.addAction(UIAlertAction(title: "Sair", style: .default, handler: { (sair) in
             try! Auth.auth().signOut()
+            UserDefaults.standard.set(false, forKey: "logarAnonimamente")
             self.performSegue(withIdentifier: "ExibirLoginScreen", sender: nil)
         }))
         present(confirmar, animated: true, completion: nil)
@@ -181,47 +234,44 @@ class TableViewController: UITableViewController {
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        
         return 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return fraseArray.count
+        return frasesFiltra.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        
-        let frase = fraseArray[indexPath.row]
+        let frase = frasesFiltra[indexPath.row]
         let novoConteudo = NSMutableAttributedString(string: frase.conteudo, attributes: atributoPadrao)
         cell.textLabel?.attributedText = novoConteudo
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd/MM/yyyy"
-        let dataFormatada = formatter.string(from: frase.dataCriada)
-        formatter.dateFormat = "HH:mm"
-        let horaFormatada = formatter.string(from: frase.dataCriada)
-        cell.detailTextLabel?.text = "(criado \(dataFormatada) às \(horaFormatada)h) - \(frase.nome)"
+        cell.detailTextLabel?.text = "\(frase.categoria) - \(frase.nome)"
         cell.backgroundColor = UIColor(white: 1.0, alpha: 0.1)
-        
+        //FOR FUTURE USE
+        //let acessorio = UIImageView(frame: CGRect(x: 0 , y: 0, width: 30, height: 30))
+        //acessorio.image = UIImage(named:"userPDF")
+        //cell.accessoryView = acessorio
         return cell
     }
     
+    // MARK: Swipe Actions
+    
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt linha: IndexPath) -> UISwipeActionsConfiguration? {
         if logOutButton.isEnabled {
-            let compartilhar = UIContextualAction(style: .normal, title: "Zap", handler: {
+            let compartilhar = UIContextualAction(style: .normal, title: "", handler: {
                 (action: UIContextualAction, view: UIView, success:(Bool) -> Void) in
-                self.compartilharWhatsapp(linha: linha)
+                self.compartilharWhatsapp(linha: (self.tabela[linha.row] - 1))
                 success(true)
             })
             compartilhar.backgroundColor = UIColor(red: 0.145, green: 0.8275, blue: 0.4, alpha: 1.0)
-            compartilhar.image = #imageLiteral(resourceName: "Zap30x30")
-            let infoDoUser = UIContextualAction(style: .normal, title: "Info", handler: {
+            compartilhar.image = #imageLiteral(resourceName: "zapPDF")
+            let infoDoUser = UIContextualAction(style: .normal, title: "", handler: {
                 (action: UIContextualAction, view: UIView, success:(Bool) -> Void) in
-                self.infoDoUsuario(linha: linha)
+                self.infoDoUsuario(linha: (self.tabela[linha.row] - 1))
             })
             infoDoUser.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
-            infoDoUser.image = #imageLiteral(resourceName: "user_info30x30")
+            infoDoUser.image = #imageLiteral(resourceName: "userPDF")
             let configuracao = UISwipeActionsConfiguration(actions: [compartilhar, infoDoUser])
             configuracao.performsFirstActionWithFullSwipe = false
             return configuracao
@@ -230,21 +280,42 @@ class TableViewController: UITableViewController {
         }
     }
     
+    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt linha: IndexPath) -> UISwipeActionsConfiguration? {
+        if logOutButton.isEnabled {
+            let dedurar = UIContextualAction(style: .normal, title: "", handler: {
+                (action: UIContextualAction, view: UIView, success:(Bool) -> Void) in
+                let confirmar = UIAlertController(title: "Deseja mesmo denunciar esta frase?", message: "", preferredStyle: .alert)
+                confirmar.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: nil))
+                confirmar.addAction(UIAlertAction(title: "Sim", style: .default, handler: { (sair) in
+                    let frase = self.fraseArray[(self.tabela[linha.row] - 1)]
+                    self.fazerDenuncia(frase: frase)
+                }))
+                self.present(confirmar, animated: true, completion: nil)
+            })
+            dedurar.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+            dedurar.image = #imageLiteral(resourceName: "denuncPDF")
+            let denucia = UISwipeActionsConfiguration(actions: [dedurar])
+            denucia.performsFirstActionWithFullSwipe = false
+            return denucia
+        }else {
+            return UISwipeActionsConfiguration(actions: [])
+        }
+    }
+    
     //MARK: Funcoes linhas da table
     
-    func infoDoUsuario(linha: IndexPath) {
+    func infoDoUsuario(linha: Int) {
         let temInternet = Reachability.temConexaoDeInternet()
         if temInternet {
-            let emailSelecionado = fraseArray[linha.row].email
-            let opcoesAlerta = UIAlertController(title: "\n\n\n\nSobre o autor", message: "Usuário: \(emailSelecionado)", preferredStyle: .alert)
-            
+            let nomeSelecionado = fraseArray[linha].nome
+            let emailSelecionado = fraseArray[linha].email
+            let opcoesAlerta = UIAlertController(title: "\n\n\n\nSobre o autor", message: "Usuário: \(nomeSelecionado)", preferredStyle: .alert)
             opcoesAlerta.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(opcoesAlerta, animated: true) {
                 let imageView = UIImageView(frame: CGRect(x: ((opcoesAlerta.view.frame.width / 2) - (75 / 2)) , y: 15, width: 75, height: 75))
                 opcoesAlerta.view.addSubview(imageView)
                 imageView.layer.cornerRadius = imageView.bounds.width / 2.0
                 imageView.layer.masksToBounds = true
-                
                 let spinner = TableViewController.displaySpinner(onView: imageView)
                 self.getProfileImage(emailSelecionado) { (url) in
                     if url != nil {
@@ -266,27 +337,77 @@ class TableViewController: UITableViewController {
         } else {
             mostrarAlerta("Sem conexão com a internet.\nCertifique-se e tente novamente!")
         }
-        
     }
     
-    func compartilharWhatsapp(linha: IndexPath) {
-        let msg = fraseArray[linha.row].conteudo
+    // MARK: Comprtilhar via Whatss
+    
+    func compartilharWhatsapp(linha: Int) {
+        let msg = fraseArray[linha].conteudo
         let urlWhats = "whatsapp://send?text=\(msg)"
         if let urlString = urlWhats.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
             if let whatsappURL = NSURL(string: urlString) {
                 if UIApplication.shared.canOpenURL(whatsappURL as URL){
-                    UIApplication.shared.open(whatsappURL as URL, options: [:], completionHandler: nil)
+                    UIApplication.shared.open(whatsappURL as URL, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
                 } else {
-                    mostrarAlerta("Certifique-se de ter o app WhatsApp instalado em seu iPhone.")
+                    semWhats(texto: msg)
                 }
             }else{
-                mostrarAlerta("Certifique-se de ter o app WhatsApp instalado em seu iPhone.")
+                semWhats(texto: msg)
             }
         } else {
-            mostrarAlerta("Certifique-se de ter o app WhatsApp instalado em seu iPhone.")
+            semWhats(texto: msg)
         }
     }
     
+    func semWhats(texto: String) {
+        let enviarTexto = [texto]
+        let activityVC = UIActivityViewController(activityItems: enviarTexto, applicationActivities: nil)
+        activityVC.popoverPresentationController?.sourceView = self.view
+        activityVC.excludedActivityTypes = [UIActivity.ActivityType.airDrop]
+        self.present(activityVC, animated: true, completion: nil)
+    }
+    
+    
+    // MARK: Filtro
+    
+    func alertaFiltros() {
+        let alerta = UIAlertController(title: "Filtrar por:", message: nil, preferredStyle: .actionSheet)
+        alerta.addAction(UIAlertAction(title: "Todas", style: .default, handler: { action in
+            self.filtro = 0
+            UserDefaults.standard.set(0, forKey: "filtro")
+            self.criarFiltros(filtro: 0)
+        }))
+        alerta.addAction(UIAlertAction(title: "Divinas", style: .default, handler: { action in
+            self.filtro = 1
+            UserDefaults.standard.set(1, forKey: "filtro")
+            self.criarFiltros(filtro: 1)
+        }))
+        alerta.addAction(UIAlertAction(title: "Músicas", style: .default, handler: { action in
+            self.filtro = 2
+            UserDefaults.standard.set(2, forKey: "filtro")
+            self.criarFiltros(filtro: 2)
+        }))
+        alerta.addAction(UIAlertAction(title: "Motivação", style: .default, handler: { action in
+            self.filtro = 3
+            UserDefaults.standard.set(3, forKey: "filtro")
+            self.criarFiltros(filtro: 3)
+        }))
+        alerta.addAction(UIAlertAction(title: "Poema", style: .default, handler: { action in
+            self.filtro = 4
+            UserDefaults.standard.set(4, forKey: "filtro")
+            self.criarFiltros(filtro: 4)
+        }))
+        alerta.addAction(UIAlertAction(title: "Autoral", style: .default, handler: { action in
+            self.filtro = 5
+            UserDefaults.standard.set(5, forKey: "filtro")
+            self.criarFiltros(filtro: 5)
+        }))
+        alerta.addAction(UIAlertAction(title: "Cancelar", style: .destructive, handler: nil))
+        present(alerta, animated: true) {
+            alerta.actions[self.filtro].isEnabled = false
+        }
+        
+    }
     
     // MARK: Alertas
     
@@ -307,6 +428,12 @@ class TableViewController: UITableViewController {
         }
     }
     
+    func alertaSemLogin() {
+        let oAlerta = UIAlertController(title: "Aviso", message: "Você deve criar uma conta para Criar Nova Frase", preferredStyle: .alert)
+        oAlerta.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(oAlerta, animated: true, completion: nil)
+    }
+    
     
     //MARK: PopUp View Functions
 
@@ -315,29 +442,75 @@ class TableViewController: UITableViewController {
     }
     
     @IBAction func uparNovaFrase(_ sender: Any) {
-        let temInternet = Reachability.temConexaoDeInternet()
-        if temInternet {
-            let conteudo = novaFraseTextView.text!
-            if (conteudo.count > 4) && (conteudo.count < 101) {
-                let spinner = TableViewController.displaySpinner(onView: self.view)
-                let novaFrase = Frase(nome: self.nomeUsuario!, conteudo: conteudo, dataCriada: Date(), email: self.emailUsuario!)
-                var referencia: DocumentReference? = nil
-                referencia = self.db.collection("frases").addDocument(data: novaFrase.dictionary) {
-                    error in
-                    if error != nil {
-                        TableViewController.removeSpinner(spinner: spinner)
-                        self.mostrarAlerta("Erro ao criar nova frase. Verifique sua conexão com a internet!")
+        if comecouEscrever {
+            let temInternet = Reachability.temConexaoDeInternet()
+            if temInternet {
+                let categoria = listaTextField?.text ?? ""
+                if categs.contains(categoria) {
+                    let conteudo = novaFraseTextView.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+                    if (conteudo.count > 4) && (conteudo.count < 141) {
+                        let spinner = TableViewController.displaySpinner(onView: self.view)
+                        let novaFrase = Frase(nome: self.nomeUsuario!, conteudo: conteudo, dataCriada: Date(), email: self.emailUsuario!, upVotes: 0, denunciada: false, categoria: categoria)
+                        var referencia: DocumentReference? = nil
+                        referencia = self.db.collection("frases").addDocument(data: novaFrase.dictionary) {
+                            error in
+                            if error != nil {
+                                TableViewController.removeSpinner(spinner: spinner)
+                                self.mostrarAlerta("Erro ao criar nova frase. Verifique sua conexão com a internet!")
+                            } else {
+                                TableViewController.removeSpinner(spinner: spinner)
+                                self.dismissPopUpView()
+                            }
+                        }
                     } else {
-                        TableViewController.removeSpinner(spinner: spinner)
-                        self.dismissPopUpView()
+                        self.mostrarAlerta("Sua frase é muito curta ou muito longa!")
                     }
+                } else {
+                    self.mostrarAlerta("Selecione uma categoria para sua frase!")
                 }
-            }else {
-                self.mostrarAlerta("Sua frase é muito longa ou muito curta!")
+            } else {
+                self.mostrarAlerta("Sem conexão com a internet.\nCertifique-se e tente novamente!")
             }
+        } else {
+            mostrarAlerta("Por favor escreva uma frase.")
         }
     }
     
+    func fazerDenuncia(frase: Frase) {
+        
+        DispatchQueue.main.async {
+            let temInternet = Reachability.temConexaoDeInternet()
+            if temInternet {
+                let spinner = TableViewController.displaySpinner(onView: self.view)
+                self.db.collection("frases").whereField("conteudo", isEqualTo: frase.conteudo)
+                    .getDocuments() { (querySnapshot, err) in
+                        if err != nil {
+                            TableViewController.removeSpinner(spinner: spinner)
+                            self.mostrarAlerta("Erro na cominucação com o servidor. Verifique sua conexão e tente novamente.")
+                        } else if frase.denunciada == true {
+                            TableViewController.removeSpinner(spinner: spinner)
+                            self.mostrarAlerta("Frase já denunciada. Agradecemos a colaboração =D")
+                        } else {
+                            for document in querySnapshot!.documents {
+                                self.db.runTransaction({ (transaction, errorPointer) -> Any? in
+                                    transaction.updateData(["denunciada": true], forDocument: document.reference)
+                                }, completion: { (object, error) in
+                                    if error != nil {
+                                        self.mostrarAlerta("Erro ao denunciar frase. Talvez sua conexão tenha falhado. Tente novamente.")
+                                    } else{
+                                        self.mostrarAlerta("Frase denunciada!\nNossa equipe tomará as medidas necessárias ;)")
+                                    }
+                                })
+                            }
+                            TableViewController.removeSpinner(spinner: spinner)
+                        }
+                }
+            } else{
+                self.mostrarAlerta("Verifique sua conexão com a internet e tente novamente.")
+            }
+        }
+    }
+ 
     func dismissPopUpView() {
         novaFraseTextView.text.removeAll()
         for views in self.view.subviews {
@@ -345,11 +518,54 @@ class TableViewController: UITableViewController {
                 views.removeFromSuperview()
             }
         }
-        novaFraseButton.isEnabled = true
         logOutButton.isEnabled = true
+        filtroBtn.isEnabled = true
+        comecouEscrever = false
         tableView.allowsSelection = true
         tableView.alwaysBounceVertical = true
+        tableView.isScrollEnabled = true
     }
+    
+    @IBAction func filtrar(_ sender: Any) {
+        alertaFiltros()
+    }
+    @objc func recarregar(){
+        refreshControl?.endRefreshing()
+        let temNet = Reachability.temConexaoDeInternet()
+        if temNet {
+            loadData()
+        } else{
+            mostrarAlerta("Falha ao atualizar. Verifique sua conexão com a internet.")
+        }
+    }
+    
+    func criarFiltros(filtro: Int){
+        tabela.removeAll()
+        frasesFiltra.removeAll()
+        if filtro != 0 {
+            var cnt = 1
+            for frase in fraseArray {
+                if frase.categoria == categs[(filtro - 1)] {
+                    frasesFiltra.insert(frase, at: frasesFiltra.endIndex)
+                    tabela.insert(cnt, at: tabela.endIndex)
+                }
+                cnt += 1
+            }
+        } else{
+            frasesFiltra = fraseArray
+            let indice = frasesFiltra.count
+            for index in 1...indice {
+                tabela.insert(index, at: tabela.endIndex)
+            }
+        }
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            if self.tabela.count == 0 {
+                self.mostrarAlerta("Nenhuma frase da categoria \(self.categs[(filtro - 1)]) foi criada recentemente.\nCrie uma, aproveite 😇")
+            }
+        }
+    }
+    
 }
 
 // MARK: Teclado
@@ -362,18 +578,18 @@ extension TableViewController: UINavigationControllerDelegate {
     
     func getKeyboardHeight(_ notification:Notification) -> CGFloat {
         let userInfo = notification.userInfo
-        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
+        let keyboardSize = userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue
         return keyboardSize.cgRectValue.height
     }
     
     func subscribeToKeyboardNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
     }
     
     func unsubscribeFromKeyboardNotifications() {
-        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
-        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
     }
     
     @objc func keyboardWillHide(_ notification:Notification) {
@@ -382,16 +598,42 @@ extension TableViewController: UINavigationControllerDelegate {
     }
 }
 
-
 extension TableViewController: UITextViewDelegate {
-    
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.tag == 8 {
-            novaFraseTextView.text = ""
+            if novaFraseTextView.text == "Sua frase aqui!"
+            {
+                novaFraseTextView.text = ""
+            }
+            comecouEscrever = true
         }
     }
+}
+
+// MARK: PickerView
+
+extension TableViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     
+    public func numberOfComponents(in pickerView: UIPickerView) -> Int{
+        return 1
+    }
+    
+    public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int{
+        return categs.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return categs[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        categariaAtual = categs[row]
+        listaTextField.text = categs[row]
+    }
 }
 
 
-
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
+}

@@ -31,6 +31,7 @@ class LoginViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        UserDefaults.standard.set(false, forKey: "logarAnonimamente")
         let temInternet = Reachability.temConexaoDeInternet()
         if temInternet == false {
             mostrarAlerta("Sem conexão de internet!\nLigue o Wi-Fi ou 'dados móveis' e tente novamente.")
@@ -53,5 +54,11 @@ class LoginViewController: UIViewController {
         present(oAlerta, animated: true, completion: nil)
     }
 
-
+    // MARK: Utilizar app sem conta
+    
+    @IBAction func utilizarSemConta(_ sender: Any) {
+        UserDefaults.standard.set(true, forKey: "logarAnonimamente")
+        dismiss(animated: true, completion: nil)
+    }
+    
 }

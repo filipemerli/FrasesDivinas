@@ -32,16 +32,6 @@ public class Reachability {
         
         return retorno
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }
 
 

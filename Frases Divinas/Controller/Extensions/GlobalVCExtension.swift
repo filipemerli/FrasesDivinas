@@ -12,8 +12,8 @@ extension UIViewController {
     
     class func displaySpinner(onView: UIView) -> UIView {
         let spinnerView = UIView.init(frame: onView.bounds)
-        spinnerView.backgroundColor = UIColor.init(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5)
-        let activIndic = UIActivityIndicatorView.init(activityIndicatorStyle: .whiteLarge)
+        spinnerView.backgroundColor = UIColor.init(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.4)
+        let activIndic = UIActivityIndicatorView.init(style: .whiteLarge)
         activIndic.startAnimating()
         activIndic.center = spinnerView.center
         DispatchQueue.main.async {
@@ -21,6 +21,19 @@ extension UIViewController {
             onView.addSubview(spinnerView)
         }
         return spinnerView
+    }
+    
+    class func displayWhiteSpin(naView: UIView) -> UIView {
+        let whiteSpiView = UIView.init(frame: naView.bounds)
+        whiteSpiView.backgroundColor = UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
+        let indicador = UIActivityIndicatorView.init(style: .gray)
+        indicador.startAnimating()
+        indicador.center = whiteSpiView.center
+        DispatchQueue.main.async {
+            whiteSpiView.addSubview(indicador)
+            naView.addSubview(whiteSpiView)
+        }
+        return whiteSpiView
     }
     
     class func removeSpinner(spinner :UIView) {

@@ -20,7 +20,7 @@ class Image {
     
     func saveProfileImage(_ userEmail: String, _ completion: @escaping (Error?) -> Void) {
         let imagemRedimensionada = image.resize()
-        if let imageData = UIImageJPEGRepresentation(imagemRedimensionada, 0.5) {
+        if let imageData = imagemRedimensionada.jpegData(compressionQuality: 0.75) {
             ref = StorageRef.profileImages.reference().child(userEmail)
             ref.putData(imageData, metadata: nil, completion: { (metaData, error) in
                 completion(error)
@@ -32,7 +32,7 @@ class Image {
 
 private extension UIImage {
     func resize() -> UIImage {
-        let altura: CGFloat = 500.0
+        let altura: CGFloat = 60.0
         let proporcao = self.size.width / self.size.height
         let largura = altura * proporcao
         

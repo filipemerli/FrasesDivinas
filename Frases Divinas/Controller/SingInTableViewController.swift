@@ -55,11 +55,13 @@ class SingInTableViewController: UITableViewController {
                     Auth.auth().signIn(withEmail: email, password: senha) { (user, error) in
                         if error == nil && user != nil {
                             SingInTableViewController.removeSpinner(spinner: spinner)
+                            UserDefaults.standard.set(false, forKey: "logarAnonimamente")
                             self.dismiss(animated: true, completion: nil)
                         }else {
                             if (error?.localizedDescription.contains("password"))! {
                                 SingInTableViewController.removeSpinner(spinner: spinner)
                                 self.esqueciSenhaAlert(email)
+                                
                             }else {
                                 SingInTableViewController.removeSpinner(spinner: spinner)
                                 self.recuperarSenhaEmail("Verifique os dados e tente novamente!")
