@@ -28,6 +28,7 @@ class SingInTableViewController: UITableViewController {
         logarNovamenteButton.layer.cornerRadius = 9
         emailTextField.delegate = self
         senhaTextField.delegate = self
+        self.modalPresentationStyle = .fullScreen
     }
     
     // MARK: Logar

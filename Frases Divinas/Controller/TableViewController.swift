@@ -72,7 +72,9 @@ class TableViewController: UITableViewController {
             }else {
                 if UserDefaults.standard.bool(forKey: "logarAnonimamente") {
                     self.loadData()
+                    self.logOutButton.title = "Voltar"
                 } else {
+                    self.logOutButton.title = "Sair"
                     self.performSegue(withIdentifier: "ExibirLoginScreen", sender: nil)
                 }
             }
@@ -222,8 +224,12 @@ class TableViewController: UITableViewController {
     @IBAction func logOut(_ sender: Any) {
         let confirmar = UIAlertController(title: "Deseja mesmo sair?", message: "", preferredStyle: .alert)
         confirmar.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: nil))
-        confirmar.addAction(UIAlertAction(title: "Sair", style: .default, handler: { (sair) in
-            try! Auth.auth().signOut()
+        confirmar.addAction(UIAlertAction(title: "Sair", style: .default, handler: { _ in
+            do {
+                try Auth.auth().signOut()
+            } catch {
+                return
+            }
             UserDefaults.standard.set(false, forKey: "logarAnonimamente")
             self.performSegue(withIdentifier: "ExibirLoginScreen", sender: nil)
         }))
@@ -451,8 +457,7 @@ class TableViewController: UITableViewController {
                     if (conteudo.count > 4) && (conteudo.count < 141) {
                         let spinner = TableViewController.displaySpinner(onView: self.view)
                         let novaFrase = Frase(nome: self.nomeUsuario!, conteudo: conteudo, dataCriada: Date(), email: self.emailUsuario!, upVotes: 0, denunciada: false, categoria: categoria)
-                        var referencia: DocumentReference? = nil
-                        referencia = self.db.collection("frases").addDocument(data: novaFrase.dictionary) {
+                        _ = self.db.collection("frases").addDocument(data: novaFrase.dictionary) {
                             error in
                             if error != nil {
                                 TableViewController.removeSpinner(spinner: spinner)

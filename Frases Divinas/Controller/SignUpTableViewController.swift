@@ -41,6 +41,7 @@ class SignUpTableViewController: UITableViewController, UIImagePickerControllerD
         nomeCompletoTextField.delegate = self
         nomeUsuarioTextField.delegate = self
         criarSenhaTextField.delegate = self
+        self.modalPresentationStyle = .fullScreen
     }
     
     @IBAction func criarNovaConta(_ sender: Any) {
