@@ -11,7 +11,7 @@ import Foundation
 import Firestore
 import Firebase
 
-class TableViewController: UITableViewController {
+final class TableViewController: UITableViewController {
     
     //MARK: Definicoes
     
@@ -38,6 +38,7 @@ class TableViewController: UITableViewController {
     var filtro = UserDefaults.standard.integer(forKey: "filtro")
     var tabela = [Int]()
     var frasesFiltra = [Frase]()
+    private var isLoggedIn = false
     
     let atributoPadrao: [NSAttributedString.Key: Any] = [
         NSAttributedString.Key.font: UIFont(name: "Georgia-BoldItalic", size: 20.0)!,
@@ -66,15 +67,16 @@ class TableViewController: UITableViewController {
         super.viewDidAppear(animated)
         Auth.auth().addStateDidChangeListener({ (auth, user) in
             if  user != nil {
+                self.isLoggedIn = true
+                self.logOutButton.title = "Sair"
                 self.uid = (user?.uid)!
                 self.atualizarInfo()
                 self.loadData()
-            }else {
+            } else {
                 if UserDefaults.standard.bool(forKey: "logarAnonimamente") {
                     self.loadData()
                     self.logOutButton.title = "Voltar"
                 } else {
-                    self.logOutButton.title = "Sair"
                     self.performSegue(withIdentifier: "ExibirLoginScreen", sender: nil)
                 }
             }
@@ -105,7 +107,7 @@ class TableViewController: UITableViewController {
             roundButton.heightAnchor.constraint(equalToConstant: 55)])
     }
 
-    func configTableView() {
+    private func configTableView() {
         let imagemBackGround = UIImage(named: "FrasesDivinasBGV3")
         let bgView = UIImageView(image: imagemBackGround)
         self.tableView.backgroundView = bgView
@@ -113,7 +115,7 @@ class TableViewController: UITableViewController {
         bgView.alpha = 0.8
     }
     
-    func configNovaFrseView() {
+    private func configNovaFrseView() {
         popUpView.clipsToBounds = true
         popUpView.layer.cornerRadius = 18
         novaFraseTextView.clipsToBounds = true
@@ -125,7 +127,7 @@ class TableViewController: UITableViewController {
     
     // MARK: Reload table cells
     
-    func loadData() {
+    private func loadData() {
         let spinner = TableViewController.displayWhiteSpin(naView: self.view)
         filtroBtn.isEnabled = false
         db.collection("frases").order(by: "dataCriada", descending: true).limit(to: 40).getDocuments() {
@@ -148,7 +150,7 @@ class TableViewController: UITableViewController {
     
     // MARK: Buscar informacoes do Usuario logado
     
-    func atualizarInfo() {
+    private func atualizarInfo() {
         let ref = DatabaseRef.users(uid: uid!).reference()
         ref.observeSingleEvent(of: .value, with: { (snapshot) in
             let value = snapshot.value as? NSDictionary
@@ -165,7 +167,7 @@ class TableViewController: UITableViewController {
     
     // MARK: Verificar novas frases
     
-    func verificarUpdates() {
+    private func verificarUpdates() {
         db.collection("frases").whereField("dataCriada", isGreaterThan: Date())
             .addSnapshotListener {
                 querySnapshot, error in
@@ -187,7 +189,7 @@ class TableViewController: UITableViewController {
     
     // MARK: Criar nova frase
     
-    @objc func novaFrase(_ sender: Any) {
+    @objc private func novaFrase(_ sender: Any) {
         if UserDefaults.standard.bool(forKey: "logarAnonimamente") {
             alertaSemLogin()
         } else {
@@ -221,20 +223,27 @@ class TableViewController: UITableViewController {
     
     // MARK: Log Out
     
-    @IBAction func logOut(_ sender: Any) {
+    @IBAction private func logOut(_ sender: Any) {
+        guard isLoggedIn == true else {
+            logOutAction()
+            return
+        }
         let confirmar = UIAlertController(title: "Deseja mesmo sair?", message: "", preferredStyle: .alert)
         confirmar.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: nil))
-        confirmar.addAction(UIAlertAction(title: "Sair", style: .default, handler: { _ in
-            do {
-                try Auth.auth().signOut()
-            } catch {
-                return
-            }
-            UserDefaults.standard.set(false, forKey: "logarAnonimamente")
-            self.performSegue(withIdentifier: "ExibirLoginScreen", sender: nil)
+        confirmar.addAction(UIAlertAction(title: "Sair", style: .destructive, handler: { _ in
+            self.logOutAction()
         }))
         present(confirmar, animated: true, completion: nil)
-        
+    }
+    
+    private func logOutAction() {
+        do {
+            try Auth.auth().signOut()
+        } catch {
+            return
+        }
+        UserDefaults.standard.set(false, forKey: "logarAnonimamente")
+        self.performSegue(withIdentifier: "ExibirLoginScreen", sender: nil)
     }
     
     // MARK: - Table view data source
@@ -270,14 +279,14 @@ class TableViewController: UITableViewController {
                 self.compartilharWhatsapp(linha: (self.tabela[linha.row] - 1))
                 success(true)
             })
-            compartilhar.backgroundColor = UIColor(red: 0.145, green: 0.8275, blue: 0.4, alpha: 1.0)
-            compartilhar.image = #imageLiteral(resourceName: "zapPDF")
+            compartilhar.image = UIImage(named: "compartilhar")
+            compartilhar.backgroundColor = UIColor.init(red: 1, green: 1, blue: 1, alpha: 0.0)
             let infoDoUser = UIContextualAction(style: .normal, title: "", handler: {
                 (action: UIContextualAction, view: UIView, success:(Bool) -> Void) in
                 self.infoDoUsuario(linha: (self.tabela[linha.row] - 1))
             })
-            infoDoUser.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
             infoDoUser.image = #imageLiteral(resourceName: "userPDF")
+            infoDoUser.backgroundColor = UIColor.init(red: 1, green: 1, blue: 1, alpha: 0.0)
             let configuracao = UISwipeActionsConfiguration(actions: [compartilhar, infoDoUser])
             configuracao.performsFirstActionWithFullSwipe = false
             return configuracao
@@ -298,8 +307,8 @@ class TableViewController: UITableViewController {
                 }))
                 self.present(confirmar, animated: true, completion: nil)
             })
-            dedurar.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
-            dedurar.image = #imageLiteral(resourceName: "denuncPDF")
+            dedurar.backgroundColor = UIColor.init(red: 1, green: 1, blue: 1, alpha: 0.0)
+            dedurar.image = UIImage(named: "denunciar")
             let denucia = UISwipeActionsConfiguration(actions: [dedurar])
             denucia.performsFirstActionWithFullSwipe = false
             return denucia
@@ -310,7 +319,7 @@ class TableViewController: UITableViewController {
     
     //MARK: Funcoes linhas da table
     
-    func infoDoUsuario(linha: Int) {
+    private func infoDoUsuario(linha: Int) {
         let temInternet = Reachability.temConexaoDeInternet()
         if temInternet {
             let nomeSelecionado = fraseArray[linha].nome
@@ -347,7 +356,7 @@ class TableViewController: UITableViewController {
     
     // MARK: Comprtilhar via Whatss
     
-    func compartilharWhatsapp(linha: Int) {
+    private func compartilharWhatsapp(linha: Int) {
         let msg = fraseArray[linha].conteudo
         let urlWhats = "whatsapp://send?text=\(msg)"
         if let urlString = urlWhats.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
@@ -365,7 +374,7 @@ class TableViewController: UITableViewController {
         }
     }
     
-    func semWhats(texto: String) {
+    private func semWhats(texto: String) {
         let enviarTexto = [texto]
         let activityVC = UIActivityViewController(activityItems: enviarTexto, applicationActivities: nil)
         activityVC.popoverPresentationController?.sourceView = self.view
@@ -376,7 +385,7 @@ class TableViewController: UITableViewController {
     
     // MARK: Filtro
     
-    func alertaFiltros() {
+    private func alertaFiltros() {
         let alerta = UIAlertController(title: "Filtrar por:", message: nil, preferredStyle: .actionSheet)
         alerta.addAction(UIAlertAction(title: "Todas", style: .default, handler: { action in
             self.filtro = 0
@@ -417,13 +426,13 @@ class TableViewController: UITableViewController {
     
     // MARK: Alertas
     
-    func mostrarAlerta(_ texto: String) {
+    private func mostrarAlerta(_ texto: String) {
         let oAlerta = UIAlertController(title: "Alerta", message: texto, preferredStyle: .alert)
         oAlerta.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         present(oAlerta, animated: true, completion: nil)
     }
     
-    func getProfileImage(_ userEmail: String, completion: @escaping (URL?) -> Void){
+    private func getProfileImage(_ userEmail: String, completion: @escaping (URL?) -> Void){
         ref = StorageRef.profileImages.reference().child(userEmail)
         ref.downloadURL { (url, error) in
             if error != nil {
@@ -434,7 +443,7 @@ class TableViewController: UITableViewController {
         }
     }
     
-    func alertaSemLogin() {
+    private func alertaSemLogin() {
         let oAlerta = UIAlertController(title: "Aviso", message: "Você deve criar uma conta para Criar Nova Frase", preferredStyle: .alert)
         oAlerta.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(oAlerta, animated: true, completion: nil)
@@ -443,11 +452,11 @@ class TableViewController: UITableViewController {
     
     //MARK: PopUp View Functions
 
-    @IBAction func dismissPopUp(_ sender: Any) {
+    @IBAction private func dismissPopUp(_ sender: Any) {
         dismissPopUpView()
     }
     
-    @IBAction func uparNovaFrase(_ sender: Any) {
+    @IBAction private func uparNovaFrase(_ sender: Any) {
         if comecouEscrever {
             let temInternet = Reachability.temConexaoDeInternet()
             if temInternet {
@@ -481,9 +490,8 @@ class TableViewController: UITableViewController {
         }
     }
     
-    func fazerDenuncia(frase: Frase) {
-        
-        DispatchQueue.main.async {
+    private func fazerDenuncia(frase: Frase) {
+        DispatchQueue.main.async { // To Do
             let temInternet = Reachability.temConexaoDeInternet()
             if temInternet {
                 let spinner = TableViewController.displaySpinner(onView: self.view)
@@ -516,7 +524,7 @@ class TableViewController: UITableViewController {
         }
     }
  
-    func dismissPopUpView() {
+    private func dismissPopUpView() {
         novaFraseTextView.text.removeAll()
         for views in self.view.subviews {
             if (views.tag >= 2) {
@@ -531,10 +539,10 @@ class TableViewController: UITableViewController {
         tableView.isScrollEnabled = true
     }
     
-    @IBAction func filtrar(_ sender: Any) {
+    @IBAction private func filtrar(_ sender: Any) {
         alertaFiltros()
     }
-    @objc func recarregar(){
+    @objc private func recarregar(){
         refreshControl?.endRefreshing()
         let temNet = Reachability.temConexaoDeInternet()
         if temNet {
@@ -544,7 +552,7 @@ class TableViewController: UITableViewController {
         }
     }
     
-    func criarFiltros(filtro: Int){
+    private func criarFiltros(filtro: Int){
         tabela.removeAll()
         frasesFiltra.removeAll()
         if filtro != 0 {

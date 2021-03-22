@@ -49,11 +49,13 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Frases Divinas" largeTitleDisplayMode="always" id="t4g-QE-zK9">
                         <barButtonItem key="leftBarButtonItem" title="Sair" id="iRZ-PH-IIX">
+                            <color key="tintColor" red="0.99750345949999997" green="0.56830686330000002" blue="0.2194809616" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <connections>
                                 <action selector="logOut:" destination="AL9-ps-vyJ" id="TZB-KK-hpi"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="categorias" image="listPDF" id="Zqq-KS-dgy">
+                        <barButtonItem key="rightBarButtonItem" title="Filtro" id="Zqq-KS-dgy">
+                            <color key="tintColor" red="0.13151180740000001" green="0.098851926620000002" blue="0.32550889249999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <connections>
                                 <action selector="filtrar:" destination="AL9-ps-vyJ" id="kx1-sc-nIu"/>
                             </connections>
@@ -85,13 +87,14 @@
                                 <constraint firstAttribute="height" constant="33" id="qH8-3T-iUd"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                            <nil key="textColor"/>
+                            <color key="textColor" red="0.13151180740000001" green="0.098851926620000002" blue="0.32550889249999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Sua frase aqui!" translatesAutoresizingMaskIntoConstraints="NO" id="mKb-7d-8a8">
                             <rect key="frame" x="18" y="29" width="268" height="100"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="textColor" red="0.13151180740000001" green="0.098851926620000002" blue="0.32550889249999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <fontDescription key="fontDescription" name="Georgia-BoldItalic" family="Georgia" pointSize="16"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                         </textView>
@@ -102,7 +105,9 @@
                                     <rect key="frame" x="0.0" y="0.0" width="151.5" height="40"/>
                                     <color key="backgroundColor" red="0.97060106561660198" green="0.98021097715736039" blue="0.98021097715736039" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                    <state key="normal" title="Cancelar"/>
+                                    <state key="normal" title="Cancelar">
+                                        <color key="titleColor" red="0.13151180740000001" green="0.098851926620000002" blue="0.32550889249999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </state>
                                     <connections>
                                         <action selector="dismissPopUp:" destination="AL9-ps-vyJ" eventType="touchUpInside" id="OqF-ox-ZjF"/>
                                     </connections>
@@ -111,7 +116,9 @@
                                     <rect key="frame" x="152.5" y="0.0" width="151.5" height="40"/>
                                     <color key="backgroundColor" red="0.97254901960784312" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <state key="normal" title="OK"/>
+                                    <state key="normal" title="OK">
+                                        <color key="titleColor" red="0.99750345949999997" green="0.56830686330000002" blue="0.2194809616" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </state>
                                     <connections>
                                         <action selector="uparNovaFrase:" destination="AL9-ps-vyJ" eventType="touchUpInside" id="mfP-SD-tqh"/>
                                     </connections>
@@ -133,12 +140,12 @@
                             <textInputTraits key="textInputTraits"/>
                         </textField>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nova Frase" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ECt-du-pAl">
-                            <rect key="frame" x="90" y="0.0" width="123" height="30"/>
+                            <rect key="frame" x="90" y="0.0" width="124" height="30"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="30" id="y0J-Y6-rbI"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                            <nil key="textColor"/>
+                            <color key="textColor" red="0.13151180740000001" green="0.098851926620000002" blue="0.32550889249999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
@@ -208,6 +215,7 @@
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_email" translatesAutoresizingMaskIntoConstraints="NO" id="8y5-0v-21F">
                                                     <rect key="frame" x="12" y="12" width="22" height="22"/>
+                                                    <color key="tintColor" red="0.13151180740000001" green="0.098851926620000002" blue="0.32550889249999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="22" id="UAa-zl-7tT"/>
                                                         <constraint firstAttribute="width" constant="22" id="WUr-vr-pWy"/>
@@ -239,6 +247,7 @@
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_profile" translatesAutoresizingMaskIntoConstraints="NO" id="qiJ-PO-0Jt">
                                                     <rect key="frame" x="12" y="12" width="22" height="22"/>
+                                                    <color key="tintColor" red="0.13151180740000001" green="0.098851926620000002" blue="0.32550889249999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="22" id="RIE-Il-Bvb"/>
                                                         <constraint firstAttribute="height" constant="22" id="bZm-8V-KJW"/>
@@ -270,6 +279,7 @@
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_user" translatesAutoresizingMaskIntoConstraints="NO" id="1Up-bD-TjV">
                                                     <rect key="frame" x="12" y="12" width="22" height="22"/>
+                                                    <color key="tintColor" red="0.13151180740000001" green="0.098851926620000002" blue="0.32550889249999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="22" id="A6s-Uc-sC7"/>
                                                         <constraint firstAttribute="width" constant="22" id="x7Q-aK-e4z"/>
@@ -305,6 +315,7 @@
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_password" translatesAutoresizingMaskIntoConstraints="NO" id="4xe-hg-BKU">
                                                     <rect key="frame" x="12" y="12" width="22" height="22"/>
+                                                    <color key="tintColor" red="0.13151180740000001" green="0.098851926620000002" blue="0.32550889249999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="22" id="e7p-ti-GC4"/>
                                                         <constraint firstAttribute="width" constant="22" id="v9I-c1-SGF"/>
@@ -395,6 +406,10 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Yk8-bh-Za8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" name="Georgia-BoldItalic" family="Georgia" pointSize="18"/>
+                            <color key="textColor" red="0.13151180740000001" green="0.098851926620000002" blue="0.32550889249999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="MMw-6a-6Nt" kind="relationship" relationship="rootViewController" id="wqu-2w-zDW"/>
@@ -404,7 +419,7 @@
             </objects>
             <point key="canvasLocation" x="1041" y="1022"/>
         </scene>
-        <!--Logar em Frases Divinas-->
+        <!--Fazer Login-->
         <scene sceneID="LBI-xf-l5z">
             <objects>
                 <tableViewController id="ONO-T8-7Gg" customClass="SingInTableViewController" customModule="Frases_Divinas" customModuleProvider="target" sceneMemberID="viewController">
@@ -424,6 +439,7 @@
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_email" translatesAutoresizingMaskIntoConstraints="NO" id="F6F-0m-kKC">
                                                     <rect key="frame" x="12" y="12" width="22" height="22"/>
+                                                    <color key="tintColor" red="0.13151180740000001" green="0.098851926620000002" blue="0.32550889249999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="22" id="L8G-dX-uQC"/>
                                                         <constraint firstAttribute="height" constant="22" id="w0U-dD-sqK"/>
@@ -454,6 +470,7 @@
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_password" translatesAutoresizingMaskIntoConstraints="NO" id="XCk-l8-dEU">
                                                     <rect key="frame" x="12" y="12" width="22" height="22"/>
+                                                    <color key="tintColor" red="0.13151180740000001" green="0.098851926620000002" blue="0.32550889249999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="22" id="em4-4V-nyL"/>
                                                         <constraint firstAttribute="height" constant="22" id="tnQ-KF-hSC"/>
@@ -517,7 +534,7 @@
                             <outlet property="delegate" destination="ONO-T8-7Gg" id="874-6s-65L"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Logar em Frases Divinas" id="Rrm-Vk-NKC">
+                    <navigationItem key="navigationItem" title="Fazer Login" id="Rrm-Vk-NKC">
                         <barButtonItem key="leftBarButtonItem" title="Voltar" id="9Zz-4d-dR0">
                             <color key="tintColor" red="1" green="0.52034810359999994" blue="0.14559000599999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
@@ -542,6 +559,10 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="MoS-g7-xWx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" name="Georgia-BoldItalic" family="Georgia" pointSize="18"/>
+                            <color key="textColor" red="0.13151180740000001" green="0.098851926620000002" blue="0.32550889249999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="ONO-T8-7Gg" kind="relationship" relationship="rootViewController" id="Bwl-Os-rjL"/>
@@ -600,7 +621,7 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <state key="normal" title="Utilizar sem criar conta">
-                                            <color key="titleColor" red="0.99960976839065552" green="0.52229386568069458" blue="0.14560157060623169" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleColor" red="0.99750345949999997" green="0.56830686330000002" blue="0.2194809616" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         </state>
                                         <connections>
                                             <action selector="utilizarSemConta:" destination="9ZK-HO-Kc5" eventType="touchUpInside" id="tHT-VQ-7fR"/>
@@ -651,8 +672,8 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <textAttributes key="titleTextAttributes">
-                            <fontDescription key="fontDescription" name="Georgia-BoldItalic" family="Georgia" pointSize="20"/>
-                            <color key="textColor" red="0.12892784012222222" green="0.1063579395" blue="0.32673213879166663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <fontDescription key="fontDescription" name="Georgia-BoldItalic" family="Georgia" pointSize="19"/>
+                            <color key="textColor" red="0.13333333333333333" green="0.098039215686274508" blue="0.32549019607843138" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <color key="textShadowColor" systemColor="lightTextColor"/>
                         </textAttributes>
                     </navigationBar>
@@ -672,7 +693,6 @@
         <image name="icon_profile" width="128" height="128"/>
         <image name="icon_profile_big" width="128" height="128"/>
         <image name="icon_user" width="128" height="128"/>
-        <image name="listPDF" width="46" height="52"/>
         <systemColor name="groupTableViewBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
