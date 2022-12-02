@@ -1,4 +1,4 @@
-platform :ios, '11.2'
+platform :ios, '15.1'
 
 target 'Frases Divinas' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
