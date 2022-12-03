@@ -443,6 +443,7 @@
 			baseConfigurationReference = 19AC0A2071F2D4AABC6791EB /* Pods-Frases Divinas.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = M2Z8KTGT88;
@@ -454,6 +455,7 @@
 				MARKETING_VERSION = 2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.filipemerli.frasesdivinas;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -467,6 +469,7 @@
 			baseConfigurationReference = 91BDFC5ABD90DC18E2A44A82 /* Pods-Frases Divinas.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = M2Z8KTGT88;
@@ -478,6 +481,7 @@
 				MARKETING_VERSION = 2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.filipemerli.frasesdivinas;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
