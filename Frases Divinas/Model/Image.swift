@@ -22,7 +22,7 @@ class Image {
         let imagemRedimensionada = image.resize()
         if let imageData = imagemRedimensionada.jpegData(compressionQuality: 0.75) {
             ref = StorageRef.profileImages.reference().child(userEmail)
-            ref.putData(imageData, metadata: nil, completion: { (metaData, error) in
+            ref.putData(imageData, metadata: nil, completion: { metaData, error in
                 completion(error)
             })
         }

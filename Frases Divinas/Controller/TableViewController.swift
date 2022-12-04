@@ -12,9 +12,9 @@ import Firestore
 import Firebase
 
 final class TableViewController: UITableViewController {
-    
+
     //MARK: Definicoes
-    
+
     @IBOutlet var popUpView: UIView!
     @IBOutlet weak var novaFraseOkBtn: UIButton!
     @IBOutlet weak var novaFraseCAncelBtn: UIButton!
@@ -39,20 +39,20 @@ final class TableViewController: UITableViewController {
     var tabela = [Int]()
     var frasesFiltra = [Frase]()
     private var isLoggedIn = false
-    
+
     let atributoPadrao: [NSAttributedString.Key: Any] = [
         NSAttributedString.Key.font: UIFont(name: "Georgia-BoldItalic", size: 20.0)!,
         NSAttributedString.Key.foregroundColor: #colorLiteral(red: 0.06274510175, green: 0, blue: 0.1921568662, alpha: 1)]
-    
+
     //MARK: ViewDidiLoad e ViewDidAppear
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         filtro = UserDefaults.standard.integer(forKey: "filtro")
-        self.refreshControl?.addTarget(self, action: #selector(recarregar), for: UIControl.Event.valueChanged)
-        self.roundButton = UIButton(type: .custom)
-        self.roundButton.setTitleColor(UIColor.orange, for: .normal)
-        self.roundButton.addTarget(self, action: #selector(novaFrase(_:)), for: UIControl.Event.touchUpInside)
+        refreshControl?.addTarget(self, action: #selector(recarregar), for: UIControl.Event.valueChanged)
+        roundButton = UIButton(type: .custom)
+        roundButton.setTitleColor(UIColor.orange, for: .normal)
+        roundButton.addTarget(self, action: #selector(novaFrase(_:)), for: UIControl.Event.touchUpInside)
         novaFraseTextView.delegate = self
         listaPicker.delegate = self
         listaPicker.dataSource = self
@@ -60,51 +60,53 @@ final class TableViewController: UITableViewController {
         configTableView()
         db = Firestore.firestore()
         verificarUpdates()
-        self.navigationController?.view.addSubview(roundButton)
+        tableView.addSubview(roundButton)
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Auth.auth().addStateDidChangeListener({ (auth, user) in
-            if  user != nil {
-                self.isLoggedIn = true
-                self.logOutButton.title = "Sair"
-                self.uid = (user?.uid)!
-                self.atualizarInfo()
-                self.loadData()
+        Auth.auth().addStateDidChangeListener({ [weak self] (auth, user) in
+            if user != nil {
+                self?.isLoggedIn = true
+                self?.logOutButton.title = "Sair"
+                self?.uid = (user?.uid)!
+                self?.atualizarInfo()
+                self?.loadData()
             } else {
                 if UserDefaults.standard.bool(forKey: "logarAnonimamente") {
-                    self.loadData()
-                    self.logOutButton.title = "Voltar"
+                    self?.loadData()
+                    self?.logOutButton.title = "Voltar"
                 } else {
-                    self.performSegue(withIdentifier: "ExibirLoginScreen", sender: nil)
+                    self?.performSegue(withIdentifier: "ExibirLoginScreen", sender: nil)
                 }
             }
         })
      }
-        
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         unsubscribeFromKeyboardNotifications()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         subscribeToKeyboardNotifications()
     }
-    
+
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        roundButton.layer.cornerRadius = roundButton.layer.frame.size.width/2
+        roundButton.layer.cornerRadius = roundButton.layer.frame.size.width / 2
         roundButton.clipsToBounds = true
-        roundButton.setImage(UIImage(named:"mais"), for: .normal)
+        roundButton.setImage(UIImage(named: "mais"), for: .normal)
         roundButton.translatesAutoresizingMaskIntoConstraints = false
         roundButton.alpha = 0.90
+        let addToView: UIView = view.superview ?? self.view
         NSLayoutConstraint.activate([
-            roundButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -15),
-            roundButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -15),
+            roundButton.trailingAnchor.constraint(equalTo: addToView.trailingAnchor, constant: -35),
+            roundButton.bottomAnchor.constraint(equalTo: addToView.bottomAnchor, constant: -35),
             roundButton.widthAnchor.constraint(equalToConstant: 55),
-            roundButton.heightAnchor.constraint(equalToConstant: 55)])
+            roundButton.heightAnchor.constraint(equalToConstant: 55)
+        ])
     }
 
     private func configTableView() {
@@ -114,7 +116,7 @@ final class TableViewController: UITableViewController {
         bgView.contentMode = .scaleAspectFit
         bgView.alpha = 0.8
     }
-    
+
     private func configNovaFrseView() {
         popUpView.clipsToBounds = true
         popUpView.layer.cornerRadius = 18
@@ -122,11 +124,10 @@ final class TableViewController: UITableViewController {
         novaFraseTextView.layer.cornerRadius = 12
         novaFraseTextView.tag = 8
         listaTextField.placeholder = "selecione"
-        listaPicker.showsSelectionIndicator = true
     }
-    
+
     // MARK: Reload table cells
-    
+
     private func loadData() {
         let spinner = TableViewController.displayWhiteSpin(naView: self.view)
         filtroBtn.isEnabled = false
@@ -147,9 +148,9 @@ final class TableViewController: UITableViewController {
             }
         }
     }
-    
+
     // MARK: Buscar informacoes do Usuario logado
-    
+
     private func atualizarInfo() {
         let ref = DatabaseRef.users(uid: uid!).reference()
         ref.observeSingleEvent(of: .value, with: { (snapshot) in
@@ -164,9 +165,9 @@ final class TableViewController: UITableViewController {
             self.mostrarAlerta("Erro ao atualizar informações. Verifique a sua conexão em configurações e volte aqui =)")
         }
     }
-    
+
     // MARK: Verificar novas frases
-    
+
     private func verificarUpdates() {
         db.collection("frases").whereField("dataCriada", isGreaterThan: Date())
             .addSnapshotListener {
@@ -184,18 +185,17 @@ final class TableViewController: UITableViewController {
                         self.loadData()
                     }
                 }
-        }
+            }
     }
-    
+
     // MARK: Criar nova frase
-    
+
     @objc private func novaFrase(_ sender: Any) {
         if UserDefaults.standard.bool(forKey: "logarAnonimamente") {
             alertaSemLogin()
         } else {
-            let temInternet = Reachability.temConexaoDeInternet()
-            if temInternet {
-                if tabela.count != 0 {
+            if Reachability.temConexaoDeInternet() {
+                if tabela.count != .zero {
                     self.tableView.scrollToRow(at: [0,0], at: .top, animated: false)
                 }
                 configNovaFrseView()
@@ -205,14 +205,14 @@ final class TableViewController: UITableViewController {
                 tableView.alwaysBounceVertical = false
                 tableView.isScrollEnabled = false
                 let blurView = UIView()
-                blurView.frame = self.view.frame
+                blurView.frame = view.frame
                 blurView.backgroundColor = UIColor.gray
                 blurView.tag = 2
                 blurView.alpha = 0.5
                 view.addSubview(blurView)
                 popUpView.tag = 3
                 view.addSubview(popUpView)
-                popUpView.center = self.view.center
+                popUpView.center = view.center
                 popUpView.frame.origin.y -= 50
                 novaFraseTextView.text = "Sua frase aqui!"
             } else {
@@ -220,9 +220,9 @@ final class TableViewController: UITableViewController {
             }
         }
     }
-    
+
     // MARK: Log Out
-    
+
     @IBAction private func logOut(_ sender: Any) {
         guard isLoggedIn == true else {
             logOutAction()
@@ -235,7 +235,7 @@ final class TableViewController: UITableViewController {
         }))
         present(confirmar, animated: true, completion: nil)
     }
-    
+
     private func logOutAction() {
         do {
             try Auth.auth().signOut()
@@ -245,17 +245,17 @@ final class TableViewController: UITableViewController {
         UserDefaults.standard.set(false, forKey: "logarAnonimamente")
         self.performSegue(withIdentifier: "ExibirLoginScreen", sender: nil)
     }
-    
+
     // MARK: - Table view data source
-    
+
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return frasesFiltra.count
     }
-    
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         let frase = frasesFiltra[indexPath.row]
@@ -269,9 +269,9 @@ final class TableViewController: UITableViewController {
         //cell.accessoryView = acessorio
         return cell
     }
-    
+
     // MARK: Swipe Actions
-    
+
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt linha: IndexPath) -> UISwipeActionsConfiguration? {
         if logOutButton.isEnabled {
             let compartilhar = UIContextualAction(style: .normal, title: "", handler: {
@@ -280,21 +280,21 @@ final class TableViewController: UITableViewController {
                 success(true)
             })
             compartilhar.image = UIImage(named: "compartilhar")
-            compartilhar.backgroundColor = UIColor.init(red: 1, green: 1, blue: 1, alpha: 0.0)
+            compartilhar.backgroundColor = UIColor.init(red: 1, green: 1, blue: 1, alpha: .zero)
             let infoDoUser = UIContextualAction(style: .normal, title: "", handler: {
                 (action: UIContextualAction, view: UIView, success:(Bool) -> Void) in
                 self.infoDoUsuario(linha: (self.tabela[linha.row] - 1))
             })
             infoDoUser.image = #imageLiteral(resourceName: "userPDF")
-            infoDoUser.backgroundColor = UIColor.init(red: 1, green: 1, blue: 1, alpha: 0.0)
+            infoDoUser.backgroundColor = UIColor.init(red: 1, green: 1, blue: 1, alpha: .zero)
             let configuracao = UISwipeActionsConfiguration(actions: [compartilhar, infoDoUser])
             configuracao.performsFirstActionWithFullSwipe = false
             return configuracao
-        }else {
+        } else {
             return UISwipeActionsConfiguration(actions: [])
         }
     }
-    
+
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt linha: IndexPath) -> UISwipeActionsConfiguration? {
         if logOutButton.isEnabled {
             let dedurar = UIContextualAction(style: .normal, title: "", handler: {
@@ -307,18 +307,18 @@ final class TableViewController: UITableViewController {
                 }))
                 self.present(confirmar, animated: true, completion: nil)
             })
-            dedurar.backgroundColor = UIColor.init(red: 1, green: 1, blue: 1, alpha: 0.0)
+            dedurar.backgroundColor = UIColor.init(red: 1, green: 1, blue: 1, alpha: .zero)
             dedurar.image = UIImage(named: "denunciar")
             let denucia = UISwipeActionsConfiguration(actions: [dedurar])
             denucia.performsFirstActionWithFullSwipe = false
             return denucia
-        }else {
+        } else {
             return UISwipeActionsConfiguration(actions: [])
         }
     }
-    
+
     //MARK: Funcoes linhas da table
-    
+
     private func infoDoUsuario(linha: Int) {
         let temInternet = Reachability.temConexaoDeInternet()
         if temInternet {
@@ -343,30 +343,29 @@ final class TableViewController: UITableViewController {
                             }
                         }
                         task.resume()
-                    }else {
+                    } else {
                         self.mostrarAlerta("Usuario com insformações incompletas.")
                     }
                 }
-                
             }
         } else {
             mostrarAlerta("Sem conexão com a internet.\nCertifique-se e tente novamente!")
         }
     }
-    
+
     // MARK: Comprtilhar via Whatss
-    
+
     private func compartilharWhatsapp(linha: Int) {
         let msg = fraseArray[linha].conteudo
         let urlWhats = "whatsapp://send?text=\(msg)"
         if let urlString = urlWhats.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
             if let whatsappURL = NSURL(string: urlString) {
-                if UIApplication.shared.canOpenURL(whatsappURL as URL){
+                if UIApplication.shared.canOpenURL(whatsappURL as URL) {
                     UIApplication.shared.open(whatsappURL as URL, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
                 } else {
                     semWhats(texto: msg)
                 }
-            }else{
+            } else {
                 semWhats(texto: msg)
             }
         } else {
@@ -382,80 +381,58 @@ final class TableViewController: UITableViewController {
         self.present(activityVC, animated: true, completion: nil)
     }
     
-    
     // MARK: Filtro
-    
+
     private func alertaFiltros() {
+        let titulos = ["Todas", "Divinas", "Músicas", "Motivação", "Poema", "Autoral"]
+
         let alerta = UIAlertController(title: "Filtrar por:", message: nil, preferredStyle: .actionSheet)
-        alerta.addAction(UIAlertAction(title: "Todas", style: .default, handler: { action in
-            self.filtro = 0
-            UserDefaults.standard.set(0, forKey: "filtro")
-            self.criarFiltros(filtro: 0)
-        }))
-        alerta.addAction(UIAlertAction(title: "Divinas", style: .default, handler: { action in
-            self.filtro = 1
-            UserDefaults.standard.set(1, forKey: "filtro")
-            self.criarFiltros(filtro: 1)
-        }))
-        alerta.addAction(UIAlertAction(title: "Músicas", style: .default, handler: { action in
-            self.filtro = 2
-            UserDefaults.standard.set(2, forKey: "filtro")
-            self.criarFiltros(filtro: 2)
-        }))
-        alerta.addAction(UIAlertAction(title: "Motivação", style: .default, handler: { action in
-            self.filtro = 3
-            UserDefaults.standard.set(3, forKey: "filtro")
-            self.criarFiltros(filtro: 3)
-        }))
-        alerta.addAction(UIAlertAction(title: "Poema", style: .default, handler: { action in
-            self.filtro = 4
-            UserDefaults.standard.set(4, forKey: "filtro")
-            self.criarFiltros(filtro: 4)
-        }))
-        alerta.addAction(UIAlertAction(title: "Autoral", style: .default, handler: { action in
-            self.filtro = 5
-            UserDefaults.standard.set(5, forKey: "filtro")
-            self.criarFiltros(filtro: 5)
-        }))
+
+        titulos.enumerated().forEach { (index, titulo) in
+            alerta.addAction(UIAlertAction(title: titulo, style: .default, handler: { action in
+                self.filtro = index
+                UserDefaults.standard.set(index, forKey: "filtro")
+                self.criarFiltros(filtro: index)
+            }))
+        }
+
         alerta.addAction(UIAlertAction(title: "Cancelar", style: .destructive, handler: nil))
         present(alerta, animated: true) {
             alerta.actions[self.filtro].isEnabled = false
         }
-        
     }
-    
+
     // MARK: Alertas
-    
+
     private func mostrarAlerta(_ texto: String) {
         let oAlerta = UIAlertController(title: "Alerta", message: texto, preferredStyle: .alert)
         oAlerta.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         present(oAlerta, animated: true, completion: nil)
     }
-    
-    private func getProfileImage(_ userEmail: String, completion: @escaping (URL?) -> Void){
+
+    private func getProfileImage(_ userEmail: String, completion: @escaping (URL?) -> Void) {
         ref = StorageRef.profileImages.reference().child(userEmail)
         ref.downloadURL { (url, error) in
             if error != nil {
                 completion(nil)
-            }else {
+            } else {
                 completion(url)
             }
         }
     }
-    
+
     private func alertaSemLogin() {
         let oAlerta = UIAlertController(title: "Aviso", message: "Você deve criar uma conta para Criar Nova Frase", preferredStyle: .alert)
         oAlerta.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(oAlerta, animated: true, completion: nil)
     }
-    
-    
+
     //MARK: PopUp View Functions
 
     @IBAction private func dismissPopUp(_ sender: Any) {
         dismissPopUpView()
     }
-    
+
     @IBAction private func uparNovaFrase(_ sender: Any) {
         if comecouEscrever {
             let temInternet = Reachability.temConexaoDeInternet()
@@ -491,9 +468,8 @@ final class TableViewController: UITableViewController {
     }
     
     private func fazerDenuncia(frase: Frase) {
-        DispatchQueue.main.async { // To Do
-            let temInternet = Reachability.temConexaoDeInternet()
-            if temInternet {
+        DispatchQueue.main.async {
+            if Reachability.temConexaoDeInternet() {
                 let spinner = TableViewController.displaySpinner(onView: self.view)
                 self.db.collection("frases").whereField("conteudo", isEqualTo: frase.conteudo)
                     .getDocuments() { (querySnapshot, err) in
@@ -518,7 +494,7 @@ final class TableViewController: UITableViewController {
                             TableViewController.removeSpinner(spinner: spinner)
                         }
                 }
-            } else{
+            } else {
                 self.mostrarAlerta("Verifique sua conexão com a internet e tente novamente.")
             }
         }
@@ -538,16 +514,17 @@ final class TableViewController: UITableViewController {
         tableView.alwaysBounceVertical = true
         tableView.isScrollEnabled = true
     }
-    
+
     @IBAction private func filtrar(_ sender: Any) {
         alertaFiltros()
     }
+
     @objc private func recarregar(){
         refreshControl?.endRefreshing()
         let temNet = Reachability.temConexaoDeInternet()
         if temNet {
             loadData()
-        } else{
+        } else {
             mostrarAlerta("Falha ao atualizar. Verifique sua conexão com a internet.")
         }
     }
@@ -584,22 +561,23 @@ final class TableViewController: UITableViewController {
 // MARK: Teclado
 
 extension TableViewController: UINavigationControllerDelegate {
-    
-    @objc func keyboardWillShow(_ notification:Notification) {
+
+    @objc func keyboardWillShow(_ notification: Notification) {
         popUpView.frame.origin.y = 15.0
     }
-    
-    func getKeyboardHeight(_ notification:Notification) -> CGFloat {
+
+    func getKeyboardHeight(_ notification: Notification) -> CGFloat {
         let userInfo = notification.userInfo
-        let keyboardSize = userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue
-        return keyboardSize.cgRectValue.height
+        let keyboardSize = userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue
+
+        return keyboardSize?.cgRectValue.height ?? .zero
     }
-    
+
     func subscribeToKeyboardNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
     }
-    
+
     func unsubscribeFromKeyboardNotifications() {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -614,8 +592,7 @@ extension TableViewController: UINavigationControllerDelegate {
 extension TableViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.tag == 8 {
-            if novaFraseTextView.text == "Sua frase aqui!"
-            {
+            if novaFraseTextView.text == "Sua frase aqui!" {
                 novaFraseTextView.text = ""
             }
             comecouEscrever = true
@@ -627,15 +604,18 @@ extension TableViewController: UITextViewDelegate {
 
 extension TableViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     
-    public func numberOfComponents(in pickerView: UIPickerView) -> Int{
+    public func numberOfComponents(in pickerView: UIPickerView) -> Int {
+
         return 1
     }
     
-    public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int{
+    public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+
         return categs.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+
         return categs[row]
     }
     

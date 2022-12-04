@@ -14,26 +14,26 @@ class Usuario {
     var nomeCompleto: String
     var email: String
     var imagemProfile: UIImage?
-    
-    init(uid: String, nomeUsuario: String, imagemProfile: UIImage, email: String, nomeCompleto: String){
+
+    init(uid: String, nomeUsuario: String, imagemProfile: UIImage, email: String, nomeCompleto: String) {
         self.uid = uid
         self.nomeUsuario = nomeUsuario
         self.imagemProfile = imagemProfile
         self.email = email
         self.nomeCompleto = nomeCompleto
     }
-    
+
     func salvar(completion: @escaping (Error?) -> Void) {
         let ref = DatabaseRef.users(uid: uid).reference()
         ref.setValue(toDict())
         if let imagemProfile = self.imagemProfile {
             let firebaseImage = Image(image: imagemProfile)
-            firebaseImage.saveProfileImage(email, { (error) in
+            firebaseImage.saveProfileImage(email, { error in
                 completion(error)
             })
         }
     }
-    
+
     func toDict() -> [String : Any] {
         return [
             "uid" : uid,

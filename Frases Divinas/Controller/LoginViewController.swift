@@ -16,16 +16,7 @@ class LoginViewController: UIViewController {
     //static let showLoginVC = "ExibirLoginScreen"
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var criarContaButton: UIButton!
-    
-    
-    // MARK: ViewDidLoad
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        loginButton.layer.cornerRadius = 9
-        criarContaButton.layer.cornerRadius = 9
-    }
-    
+    let serialQueue = DispatchQueue.init(label: "serialQueue")
     
     // MARK: ViewDidAppear
     
@@ -36,10 +27,10 @@ class LoginViewController: UIViewController {
         if temInternet == false {
             mostrarAlerta("Sem conexão de internet!\nLigue o Wi-Fi ou 'dados móveis' e tente novamente.")
         } else {
-            DispatchQueue.main.async {
-                Auth.auth().addStateDidChangeListener { (auth, user) in
+            serialQueue.async {
+                Auth.auth().addStateDidChangeListener { [weak self] (auth, user) in
                     if user != nil {
-                        self.dismiss(animated: false, completion: nil)
+                        self?.dismiss(animated: false, completion: nil)
                     } 
                 }
             }

@@ -12,28 +12,28 @@ import Firebase
 import Photos
 
 class SignUpTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
+
     var imagemPerfil: UIImage!
-    
+
     @IBOutlet weak var fotoPerfilView: UIImageView!
-    
+
     @IBAction func mudarFotoPerfil(_ sender: Any) {
-    
+
         let spinner = SignUpTableViewController.displaySpinner(onView: self.view)
         DispatchQueue.main.async {
             self.pegarImagemLibrary()
             SignUpTableViewController.removeSpinner(spinner: spinner)
         }
     }
-    
+
     @IBOutlet weak var criarNovaContaButton: UIButton!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var nomeCompletoTextField: UITextField!
     @IBOutlet weak var nomeUsuarioTextField: UITextField!
     @IBOutlet weak var criarSenhaTextField: UITextField!
-    
+
     let textoFoto = "Nenhuma foto de perfil foi selecionada. Usar uma foto padrão?"
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         criarNovaContaButton.layer.cornerRadius = 9
@@ -43,20 +43,20 @@ class SignUpTableViewController: UITableViewController, UIImagePickerControllerD
         criarSenhaTextField.delegate = self
         self.modalPresentationStyle = .fullScreen
     }
-    
+
     @IBAction func criarNovaConta(_ sender: Any) {
-        
+
         if imagemPerfil == nil {
             if ((UserDefaults.standard.bool(forKey: "userJaClicouMudarFoto") == true) && (UserDefaults.standard.bool(forKey: "userPermiteFotos") == false)) {
                 alertaUsandoFotoPadrao()
             } else {
                 alertaDeFoto()
             }
-        }else {
+        } else {
             criarContaSim()
         }
     }
-    
+
     func criarContaSim() {
         guard (criarSenhaTextField.text?.count)! >= 6 else {
             mostrarAlerta("Senha muito curta.")
@@ -92,12 +92,12 @@ class SignUpTableViewController: UITableViewController, UIImagePickerControllerD
                             if error != nil {
                                 SingInTableViewController.removeSpinner(spinner: spinner)
                                 self.mostrarAlerta("Erro ao salvar novo usuário. Verifique seus dados e tente novamente!")
-                            }else {
+                            } else {
                                 Auth.auth().signIn(withEmail: email, password: senha, completion: { (dbUser, error) in
                                     if error != nil {
                                         SingInTableViewController.removeSpinner(spinner: spinner)
                                         self.mostrarAlerta("Erro ao logar com novo usuário. Verifique sua conexão com a internet e tente logar.")
-                                    }else {
+                                    } else {
                                         SingInTableViewController.removeSpinner(spinner: spinner)
                                         UserDefaults.standard.set(false, forKey: "logarAnonimamente")
                                         self.dismiss(animated: true, completion: nil)
@@ -108,24 +108,24 @@ class SignUpTableViewController: UITableViewController, UIImagePickerControllerD
                     }
                 })
             }
-        }else {
+        } else {
             SingInTableViewController.removeSpinner(spinner: spinner)
             mostrarAlerta("Dados incompletos!")
         }
     }
-    
+
     @IBAction func voltarPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
-    
+
     // MARK: Alertas
-    
+
     func mostrarAlerta(_ texto: String) {
         let oAlerta = UIAlertController(title: "Alerta", message: texto, preferredStyle: .alert)
         oAlerta.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         present(oAlerta, animated: true, completion: nil)
     }
-    
+
     func alertaDeFoto() {
         let oAlerta = UIAlertController(title: "Alerta", message: textoFoto, preferredStyle: .alert)
         oAlerta.addAction(UIAlertAction(title: "Vou mudar", style: .cancel, handler: nil))
@@ -136,7 +136,7 @@ class SignUpTableViewController: UITableViewController, UIImagePickerControllerD
         }))
         present(oAlerta, animated: true, completion: nil)
     }
-    
+
     func alertaUsandoFotoPadrao() {
         let oAlerta = UIAlertController(title: "Aviso", message: "Usando foto padrão para o seu perfil", preferredStyle: .alert)
         oAlerta.addAction(UIAlertAction(title: "OK", style: .default, handler: { (_ ) in
@@ -146,16 +146,15 @@ class SignUpTableViewController: UITableViewController, UIImagePickerControllerD
         }))
         present(oAlerta, animated: true, completion: nil)
     }
-    
+
     func alertaDeAjudaFotos() {
         let oAlerta = UIAlertController(title: "Ajuda", message: "Para permitir acesso a sua biblioteca de fotos feche este app, vá em Ajustes > Privacidade > Fotos > Frases Divinas e permita Leitura e Gravação.", preferredStyle: .alert)
         oAlerta.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(oAlerta, animated: true, completion: nil)
     }
-    
-    
+
     // MARK: ImagePicker
-    
+
     func pegarImagemLibrary() {
         let spinner = SingInTableViewController.displaySpinner(onView: self.view)
         verificarPermissao(completion: { (permitido) in
@@ -174,12 +173,11 @@ class SignUpTableViewController: UITableViewController, UIImagePickerControllerD
             }
             UserDefaults.standard.set(true, forKey: "userJaClicouMudarFoto")
         })
-        
     }
-    
+
     @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-// Local variable inserted by Swift 4.2 migrator.
-let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
+        // Local variable inserted by Swift 4.2 migrator.
+        let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
 
         if let image = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.editedImage)] as? UIImage {
             imagemPerfil = image
@@ -194,13 +192,13 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
         }
         dismiss(animated: true, completion: nil)
     }
-    
+
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
-    
+
     // MARK: Verificar permissao da PhotoLibrary
-    
+
     func verificarPermissao(completion:@escaping (Bool)->Void) {
         if PHPhotoLibrary.authorizationStatus() != .authorized {
             PHPhotoLibrary.requestAuthorization({ (status) in
@@ -233,9 +231,6 @@ extension SignUpTableViewController: UITextFieldDelegate {
         return true
     }
 }
-
-
-
 
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {

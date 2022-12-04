@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9Fh-yo-68N">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9Fh-yo-68N">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -18,7 +20,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="Cell" textLabel="o2V-cm-bCD" detailTextLabel="YZY-Al-KYV" style="IBUITableViewCellStyleSubtitle" id="bF2-Br-DYY">
-                                <rect key="frame" x="0.0" y="28" width="375" height="56"/>
+                                <rect key="frame" x="0.0" y="50" width="375" height="56"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="right" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bF2-Br-DYY" id="8vj-iX-yWV">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
@@ -49,13 +51,13 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Frases Divinas" largeTitleDisplayMode="always" id="t4g-QE-zK9">
                         <barButtonItem key="leftBarButtonItem" title="Sair" id="iRZ-PH-IIX">
-                            <color key="tintColor" red="0.99750345949999997" green="0.56830686330000002" blue="0.2194809616" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="logOut:" destination="AL9-ps-vyJ" id="TZB-KK-hpi"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Filtro" id="Zqq-KS-dgy">
-                            <color key="tintColor" red="0.13151180740000001" green="0.098851926620000002" blue="0.32550889249999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="filtrar:" destination="AL9-ps-vyJ" id="kx1-sc-nIu"/>
                             </connections>
@@ -175,15 +177,27 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="static" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="JcR-Fa-kwy">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="separatorColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="jtS-yj-d7V">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="115"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QIZ-ou-fbJ">
-                                    <rect key="frame" x="119.5" y="90" width="136" height="30"/>
-                                    <color key="tintColor" red="1" green="0.52034810359999994" blue="0.14559000599999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <rect key="frame" x="110" y="90" width="155" height="40"/>
+                                    <color key="backgroundColor" red="1" green="0.74117647058823533" blue="0.22352941176470587" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="155" id="fpG-3e-yl2"/>
+                                        <constraint firstAttribute="height" constant="40" id="n9q-98-KES"/>
+                                    </constraints>
+                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <state key="normal" title="Mudar foto de perfil"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="20"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
                                     <connections>
                                         <action selector="mudarFotoPerfil:" destination="MMw-6a-6Nt" eventType="touchUpInside" id="aNW-Sd-Y6I"/>
                                     </connections>
@@ -196,6 +210,7 @@
                                     </constraints>
                                 </imageView>
                             </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstItem="QIZ-ou-fbJ" firstAttribute="centerX" secondItem="jtS-yj-d7V" secondAttribute="centerX" id="6FY-bd-Zey"/>
                                 <constraint firstItem="0Xx-XB-vhc" firstAttribute="centerX" secondItem="jtS-yj-d7V" secondAttribute="centerX" id="HDV-hs-sRH"/>
@@ -349,23 +364,32 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vOG-xZ-f67">
-                                                    <rect key="frame" x="8" y="0.0" width="359" height="50"/>
-                                                    <color key="backgroundColor" red="1" green="0.52034810359999994" blue="0.14559000599999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vOG-xZ-f67">
+                                                    <rect key="frame" x="110" y="0.0" width="155" height="50"/>
+                                                    <color key="backgroundColor" red="1" green="0.74283198569999997" blue="0.22219034239999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="155" id="DP5-w2-NiC"/>
+                                                        <constraint firstAttribute="height" constant="50" id="Xn4-Bz-LLy"/>
+                                                    </constraints>
                                                     <state key="normal" title="Criar Nova Conta">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="titleShadowColor" systemColor="opaqueSeparatorColor"/>
                                                     </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="25"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <action selector="criarNovaConta:" destination="MMw-6a-6Nt" eventType="touchUpInside" id="bXc-yv-Vnb"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
-                                            <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="vOG-xZ-f67" secondAttribute="bottom" id="0PT-bl-1SY"/>
                                                 <constraint firstItem="vOG-xZ-f67" firstAttribute="top" secondItem="fu6-nu-vgl" secondAttribute="top" id="dI0-2z-wHS"/>
-                                                <constraint firstAttribute="trailing" secondItem="vOG-xZ-f67" secondAttribute="trailing" constant="8" id="sRB-q8-jBp"/>
-                                                <constraint firstItem="vOG-xZ-f67" firstAttribute="leading" secondItem="fu6-nu-vgl" secondAttribute="leading" constant="8" id="vgr-vV-W6g"/>
+                                                <constraint firstItem="vOG-xZ-f67" firstAttribute="centerX" secondItem="fu6-nu-vgl" secondAttribute="centerX" id="mec-Tp-88V"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" systemColor="tableCellGroupedBackgroundColor"/>
@@ -379,8 +403,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Criar Nova Conta" id="gHd-TT-2Eg">
-                        <barButtonItem key="leftBarButtonItem" title="Voltar" id="l8X-Z4-sRk">
-                            <color key="tintColor" red="1" green="0.52034810362088391" blue="0.14559000603848804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <barButtonItem key="leftBarButtonItem" title="Item" id="l8X-Z4-sRk">
+                            <imageReference key="image" image="chevron.backward" catalog="system" symbolScale="large"/>
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="voltarPressed:" destination="MMw-6a-6Nt" id="eJi-nM-0Te"/>
                             </connections>
@@ -407,8 +432,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textAttributes key="titleTextAttributes">
-                            <fontDescription key="fontDescription" name="Georgia-BoldItalic" family="Georgia" pointSize="18"/>
-                            <color key="textColor" red="0.13151180740000001" green="0.098851926620000002" blue="0.32550889249999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <fontDescription key="fontDescription" name="TamilSangamMN-Bold" family="Tamil Sangam MN" pointSize="19"/>
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </textAttributes>
                     </navigationBar>
                     <connections>
@@ -426,7 +451,8 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="gWB-ia-JoM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="separatorColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <sections>
                             <tableViewSection headerTitle="Logar com a sua conta" id="40r-gc-6s0">
                                 <cells>
@@ -507,8 +533,8 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vUM-9U-v1b">
-                                                    <rect key="frame" x="8" y="0.0" width="359" height="50"/>
-                                                    <color key="backgroundColor" red="1" green="0.52034810359999994" blue="0.14559000599999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <rect key="frame" x="55" y="0.0" width="265" height="50"/>
+                                                    <color key="backgroundColor" red="1" green="0.74283198569999997" blue="0.22219034239999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <state key="normal" title="Logar Novamente">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
@@ -517,12 +543,12 @@
                                                     </connections>
                                                 </button>
                                             </subviews>
-                                            <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="vUM-9U-v1b" secondAttribute="bottom" id="KaD-Wq-YUS"/>
                                                 <constraint firstItem="vUM-9U-v1b" firstAttribute="top" secondItem="xKy-me-un3" secondAttribute="top" id="VTb-qP-zIo"/>
-                                                <constraint firstAttribute="trailing" secondItem="vUM-9U-v1b" secondAttribute="trailing" constant="8" id="Vaw-Pe-IQg"/>
-                                                <constraint firstItem="vUM-9U-v1b" firstAttribute="leading" secondItem="xKy-me-un3" secondAttribute="leading" constant="8" id="qw5-EZ-Y5H"/>
+                                                <constraint firstAttribute="trailing" secondItem="vUM-9U-v1b" secondAttribute="trailing" constant="55" id="Vaw-Pe-IQg"/>
+                                                <constraint firstItem="vUM-9U-v1b" firstAttribute="leading" secondItem="xKy-me-un3" secondAttribute="leading" constant="55" id="qw5-EZ-Y5H"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -535,8 +561,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Fazer Login" id="Rrm-Vk-NKC">
-                        <barButtonItem key="leftBarButtonItem" title="Voltar" id="9Zz-4d-dR0">
-                            <color key="tintColor" red="1" green="0.52034810359999994" blue="0.14559000599999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <barButtonItem key="leftBarButtonItem" id="9Zz-4d-dR0">
+                            <imageReference key="image" image="chevron.backward" catalog="system" symbolScale="large"/>
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="voltarPressed:" destination="ONO-T8-7Gg" id="Pvz-Yd-fBV"/>
                             </connections>
@@ -560,8 +587,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textAttributes key="titleTextAttributes">
-                            <fontDescription key="fontDescription" name="Georgia-BoldItalic" family="Georgia" pointSize="18"/>
-                            <color key="textColor" red="0.13151180740000001" green="0.098851926620000002" blue="0.32550889249999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <fontDescription key="fontDescription" name="TamilSangamMN-Bold" family="Tamil Sangam MN" pointSize="19"/>
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </textAttributes>
                     </navigationBar>
                     <connections>
@@ -587,70 +614,87 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aj0-BM-XBc">
-                                        <rect key="frame" x="8" y="592" width="359" height="50"/>
-                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.4999464897" colorSpace="calibratedRGB"/>
+                                        <rect key="frame" x="110" y="562" width="155" height="50"/>
+                                        <color key="backgroundColor" red="1" green="0.50588235290000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="EIU-4J-gvp"/>
+                                            <constraint firstAttribute="width" constant="155" id="Vh0-EV-mYh"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <state key="normal" title="Criar Conta">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleShadowColor" systemColor="secondaryLabelColor"/>
                                         </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="25"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <segue destination="vEZ-sx-TKu" kind="presentation" modalPresentationStyle="fullScreen" id="d4K-HU-wzF"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fgo-Mf-MoO">
-                                        <rect key="frame" x="8" y="534" width="359" height="50"/>
-                                        <color key="backgroundColor" red="1" green="0.52034810359999994" blue="0.14559000599999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <rect key="frame" x="110" y="496" width="155" height="50"/>
+                                        <color key="backgroundColor" red="1" green="0.74283198569999997" blue="0.22219034239999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="WMn-su-uwD"/>
+                                            <constraint firstAttribute="width" constant="155" id="bcc-m9-AvD"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <state key="normal" title="Login">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="25"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <segue destination="spZ-fz-fte" kind="presentation" modalPresentationStyle="fullScreen" id="GMD-YI-gCT"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a7w-Yp-Rmo">
-                                        <rect key="frame" x="0.0" y="36" width="375" height="25"/>
+                                    <button opaque="NO" alpha="0.90000000000000002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a7w-Yp-Rmo">
+                                        <rect key="frame" x="110" y="8" width="155" height="40"/>
+                                        <color key="backgroundColor" red="0.96967905552175804" green="0.96843639766929579" blue="0.99014253507960925" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="25" id="zjr-wl-5zU"/>
+                                            <constraint firstAttribute="width" constant="155" id="v6y-vr-xuS"/>
+                                            <constraint firstAttribute="height" constant="40" id="zjr-wl-5zU"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <state key="normal" title="Utilizar sem criar conta">
-                                            <color key="titleColor" red="0.99750345949999997" green="0.56830686330000002" blue="0.2194809616" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <color key="titleColor" red="1" green="0.74283198566520259" blue="0.2221903423817726" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="20"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="utilizarSemConta:" destination="9ZK-HO-Kc5" eventType="touchUpInside" id="tHT-VQ-7fR"/>
                                         </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="fgo-Mf-MoO" secondAttribute="trailing" constant="8" id="6B8-3q-zoj"/>
-                                    <constraint firstAttribute="trailing" secondItem="a7w-Yp-Rmo" secondAttribute="trailing" id="C5x-0U-qHv"/>
-                                    <constraint firstAttribute="trailing" secondItem="aj0-BM-XBc" secondAttribute="trailing" constant="8" id="GDv-mC-RrD"/>
-                                    <constraint firstItem="aj0-BM-XBc" firstAttribute="top" secondItem="fgo-Mf-MoO" secondAttribute="bottom" constant="8" symbolic="YES" id="KZE-c9-2ED"/>
-                                    <constraint firstItem="fgo-Mf-MoO" firstAttribute="leading" secondItem="O5h-G6-gZA" secondAttribute="leading" constant="8" id="MO5-Hb-UwO"/>
-                                    <constraint firstAttribute="bottom" secondItem="aj0-BM-XBc" secondAttribute="bottom" constant="25" id="Uqs-2d-wfs"/>
-                                    <constraint firstItem="a7w-Yp-Rmo" firstAttribute="top" secondItem="O5h-G6-gZA" secondAttribute="top" constant="36" id="ZQr-Vl-p5f"/>
-                                    <constraint firstItem="aj0-BM-XBc" firstAttribute="leading" secondItem="O5h-G6-gZA" secondAttribute="leading" constant="8" id="ojN-Pw-Ud8"/>
-                                    <constraint firstItem="a7w-Yp-Rmo" firstAttribute="leading" secondItem="O5h-G6-gZA" secondAttribute="leading" id="xy4-zF-w3C"/>
+                                    <constraint firstItem="aj0-BM-XBc" firstAttribute="centerX" secondItem="O5h-G6-gZA" secondAttribute="centerX" id="Bmq-5G-6wM"/>
+                                    <constraint firstItem="aj0-BM-XBc" firstAttribute="top" secondItem="fgo-Mf-MoO" secondAttribute="bottom" constant="16" id="KZE-c9-2ED"/>
+                                    <constraint firstItem="fgo-Mf-MoO" firstAttribute="centerX" secondItem="O5h-G6-gZA" secondAttribute="centerX" id="SUh-Nk-tvI"/>
+                                    <constraint firstAttribute="bottom" secondItem="aj0-BM-XBc" secondAttribute="bottom" constant="55" id="Uqs-2d-wfs"/>
+                                    <constraint firstItem="a7w-Yp-Rmo" firstAttribute="top" secondItem="O5h-G6-gZA" secondAttribute="top" constant="8" id="ZQr-Vl-p5f"/>
+                                    <constraint firstItem="a7w-Yp-Rmo" firstAttribute="centerX" secondItem="O5h-G6-gZA" secondAttribute="centerX" id="yjo-7z-Iwo"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Knh-eM-2qO"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="O5h-G6-gZA" firstAttribute="bottom" secondItem="Knh-eM-2qO" secondAttribute="bottom" id="6B9-IL-k2O"/>
+                            <constraint firstItem="O5h-G6-gZA" firstAttribute="bottom" secondItem="WYB-AY-9HK" secondAttribute="bottom" id="6B9-IL-k2O"/>
                             <constraint firstItem="O5h-G6-gZA" firstAttribute="centerX" secondItem="WYB-AY-9HK" secondAttribute="centerX" id="Dml-Jb-r56"/>
                             <constraint firstItem="O5h-G6-gZA" firstAttribute="leading" secondItem="Aw7-VZ-hBM" secondAttribute="leading" id="MgZ-xN-X4S"/>
                             <constraint firstItem="O5h-G6-gZA" firstAttribute="bottom" secondItem="Aw7-VZ-hBM" secondAttribute="bottom" id="Mu4-8S-1Rx"/>
                             <constraint firstItem="O5h-G6-gZA" firstAttribute="top" secondItem="Aw7-VZ-hBM" secondAttribute="top" id="Xfa-20-pXu"/>
                             <constraint firstItem="O5h-G6-gZA" firstAttribute="top" secondItem="Knh-eM-2qO" secondAttribute="top" id="age-Vg-fX4"/>
-                            <constraint firstItem="O5h-G6-gZA" firstAttribute="leading" secondItem="Knh-eM-2qO" secondAttribute="leading" id="f4v-GG-NdU"/>
+                            <constraint firstItem="O5h-G6-gZA" firstAttribute="leading" secondItem="WYB-AY-9HK" secondAttribute="leading" id="f4v-GG-NdU"/>
                             <constraint firstItem="O5h-G6-gZA" firstAttribute="trailing" secondItem="Aw7-VZ-hBM" secondAttribute="trailing" id="pI7-Or-Mga"/>
                         </constraints>
                     </view>
@@ -672,8 +716,8 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <textAttributes key="titleTextAttributes">
-                            <fontDescription key="fontDescription" name="Georgia-BoldItalic" family="Georgia" pointSize="19"/>
-                            <color key="textColor" red="0.13333333333333333" green="0.098039215686274508" blue="0.32549019607843138" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <fontDescription key="fontDescription" name="TamilSangamMN-Bold" family="Tamil Sangam MN" pointSize="19"/>
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <color key="textShadowColor" systemColor="lightTextColor"/>
                         </textAttributes>
                     </navigationBar>
@@ -688,16 +732,20 @@
     </scenes>
     <resources>
         <image name="FrasesDivinasBG" width="2340" height="4160"/>
+        <image name="chevron.backward" catalog="system" width="97" height="128"/>
         <image name="icon_email" width="128" height="96"/>
         <image name="icon_password" width="128" height="128"/>
         <image name="icon_profile" width="128" height="128"/>
         <image name="icon_profile_big" width="128" height="128"/>
         <image name="icon_user" width="128" height="128"/>
-        <systemColor name="groupTableViewBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
         <systemColor name="lightTextColor">
             <color white="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="opaqueSeparatorColor">
+            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="tableCellGroupedBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

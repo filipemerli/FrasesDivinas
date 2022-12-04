@@ -58,12 +58,12 @@ class SingInTableViewController: UITableViewController {
                             SingInTableViewController.removeSpinner(spinner: spinner)
                             UserDefaults.standard.set(false, forKey: "logarAnonimamente")
                             self.dismiss(animated: true, completion: nil)
-                        }else {
+                        } else {
                             if (error?.localizedDescription.contains("password"))! {
                                 SingInTableViewController.removeSpinner(spinner: spinner)
                                 self.esqueciSenhaAlert(email)
                                 
-                            }else {
+                            } else {
                                 SingInTableViewController.removeSpinner(spinner: spinner)
                                 self.recuperarSenhaEmail("Verifique os dados e tente novamente!")
                             }
@@ -71,7 +71,7 @@ class SingInTableViewController: UITableViewController {
                         }
                     }
                 }
-            }else {
+            } else {
                 SingInTableViewController.removeSpinner(spinner: spinner)
                 mostrarAlerta("Sem conexão de internet")
             }

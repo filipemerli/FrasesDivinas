@@ -22,7 +22,7 @@ extension UIViewController {
         }
         return spinnerView
     }
-    
+
     class func displayWhiteSpin(naView: UIView) -> UIView {
         let whiteSpiView = UIView.init(frame: naView.bounds)
         whiteSpiView.backgroundColor = UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
@@ -35,8 +35,8 @@ extension UIViewController {
         }
         return whiteSpiView
     }
-    
-    class func removeSpinner(spinner :UIView) {
+
+    class func removeSpinner(spinner: UIView) {
         DispatchQueue.main.async {
             spinner.removeFromSuperview()
         }

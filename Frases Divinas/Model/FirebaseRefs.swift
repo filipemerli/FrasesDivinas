@@ -10,12 +10,12 @@ import Foundation
 import Firebase
 
 enum DatabaseRef {
-    
+
     case root
     case users(uid: String)
-    
+
     func reference() -> DatabaseReference {
-        
+
         switch self {
         case .root:
             return rootRef
@@ -33,16 +33,14 @@ enum DatabaseRef {
             return ""
         case .users(let uid):
             return "users/\(uid)"
-            
         }
     }
-    
 }
 
 enum StorageRef {
     case root
     case profileImages
-    
+
     func reference() -> StorageReference {
         switch self {
         case .root:
@@ -51,11 +49,11 @@ enum StorageRef {
            return rootRef.child(path)
         }
     }
-    
+
     private var rootRef: StorageReference {
         return Storage.storage().reference()
     }
-    
+
     private var path: String {
         switch self {
         case .root:
@@ -64,7 +62,6 @@ enum StorageRef {
             return "profileImages"
         }
     }
-    
 }
 
 

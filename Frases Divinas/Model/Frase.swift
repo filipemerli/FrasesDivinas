@@ -21,8 +21,8 @@ struct Frase {
     var upVotes: Int
     var denunciada: Bool
     var categoria: String
-    
-    var dictionary:[String: Any] {
+
+    var dictionary: [String: Any] {
         return [
             "nome": nome,
             "conteudo": conteudo,
@@ -33,7 +33,6 @@ struct Frase {
             "categoria": categoria
         ]
     }
-    
 }
 
 extension Frase : DocmentSerializable {
